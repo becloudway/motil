@@ -1,6 +1,6 @@
 {
   "name": "motil-core",
-  "version": "1.0.7",
+  "version": "1.0.0",
   "description": "Component for AdminLTE and utility classes",
   "main": "./dist/index.js",
   "scripts": {
