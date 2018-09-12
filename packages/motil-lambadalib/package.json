@@ -1,0 +1,24 @@
+{
+  "name": "motil-lambadalib",
+  "version": "1.2.6",
+  "description": "Library for handling lambda functions in node.js in a more structured way",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "dev-watch": "tsc -w"
+  },
+  "author": "Mitch Mommers",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^10.5.7",
+    "aws-lambda": "^0.1.2",
+    "chalk": "^2.4.1",
+    "reflect-metadata": "^0.1.12"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.11",
+    "typescript": "^3.0.1"
+  }
+}

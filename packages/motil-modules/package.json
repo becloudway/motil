@@ -1,0 +1,16 @@
+{
+  "name": "motil-modules",
+  "version": "1.0.0",
+  "description": "Contians the module loader and classes for loading modules by installing them as seperate files.",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "build-watch": "tsc --watch"
+  },
+  "author": "Mitch Mommers",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^10.9.4",
+    "typescript": "^3.0.3"
+  }
+}

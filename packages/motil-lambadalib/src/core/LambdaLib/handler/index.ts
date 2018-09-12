@@ -1,0 +1,1 @@
+export { EntryHandler } from "./entryhandler";

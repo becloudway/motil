@@ -1,0 +1,40 @@
+{
+  "name": "motil-core",
+  "version": "1.0.7",
+  "description": "Component for AdminLTE and utility classes",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "build-watch": "tsc --watch"
+  },
+  "author": "Mitch Mommers",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "jquery": "^3.3.1",
+    "lodash": "^4.17.10",
+    "mobx": "^5.1.0",
+    "mobx-react": "^5.2.5",
+    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.21",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-json-tree": "^0.11.0",
+    "react-json-view": "^1.19.1",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-timeago": "^4.1.9",
+    "sweetalert": "^2.1.0",
+    "typelevel-ts": "^0.3.1"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.116",
+    "@types/react": "^16.4.9",
+    "@types/react-router-dom": "^4.3.0",
+    "awesome-typescript-loader": "^5.2.0",
+    "typescript": "^3.0.1",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0"
+  }
+}

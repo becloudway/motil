@@ -1,0 +1,27 @@
+{
+  "name": "motil-mclip",
+  "version": "1.0.6",
+  "description": "",
+  "main": "./dist/index.js",
+  "bin": {
+    "mclip": "./dist/index.js"
+  },
+  "scripts": {
+    "pack": "tsc"
+  },
+  "author": "Mitch Mommers",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "co": "^4.6.0",
+    "co-prompt": "^1.0.0",
+    "commander": "^2.17.1",
+    "copy-node-modules": "^1.0.7",
+    "progress": "^2.0.0",
+    "yaml-lint": "^1.2.4"
+  },
+  "devDependencies": {
+    "@types/node": "^10.5.7",
+    "typescript": "^3.0.1"
+  }
+}

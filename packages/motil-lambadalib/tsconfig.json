@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "declaration": true,
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "strict": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "moduleResolution": "node",
+        "typeRoots": [
+            "node_modules/@types",
+            "typings/"
+        ],
+        "types": ["node"],
+        "lib": [
+            "dom",
+            "es6",
+            "scripthost",
+            "es2015.iterable"
+        ]
+    },
+    "exclude": [
+        "tests/**",
+        "**/*.test.ts",
+        "dist",
+        "node_modules"
+    ]
+}
