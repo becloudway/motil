@@ -62,6 +62,27 @@ export abstract class EntryHandler {
         }
     }
 
+    wrapCallBack (callback: any) {
+         
+        return (error: any, response: any) => {
+            let body = response.body;  
+
+            if (typeof body === "string") {
+                body = body.trim();
+
+                try {
+                    body = JSON.stringify(JSON.parse(body));
+                } catch (ex) {
+                    body = JSON.stringify({
+                        message: body
+                    });
+                }
+            }
+        
+            callback(error, response);
+        };
+    }
+
     public executeRoute () {
         const names = Object.getOwnPropertyNames(Object.getPrototypeOf(this));
         
@@ -69,11 +90,13 @@ export abstract class EntryHandler {
         let callback = this.callback;
         let corsIsSet = false;
 
+
         for (let v of names) {
             let decorators = DecoratorUtil.getDecorators(this, v);
             if (decorators.length <= 0) {
                 continue;
             }
+
             for (let d of decorators) {
                 if (d.decorator === "API"
                     && (d.url === "*" || this.baseUrl + d.url === this.event.resource)
@@ -89,9 +112,11 @@ export abstract class EntryHandler {
                     };
                 }
             }
+
+
         
             if (execute) {
-                execute(this.event, this.context, callback);
+                execute(this.event, this.context, this.wrapCallBack(callback));
                 return;
             }
         }
