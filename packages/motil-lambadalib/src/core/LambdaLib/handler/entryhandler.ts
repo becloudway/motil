@@ -27,7 +27,7 @@ export abstract class EntryHandler {
         this.init();
     }
 
-    public async init () {       
+    public async init () {        
         this.decorate();
 
         if (this.method !== HttpMethod.OPTIONS) {
