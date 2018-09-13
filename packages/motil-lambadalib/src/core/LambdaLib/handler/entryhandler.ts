@@ -62,23 +62,24 @@ export abstract class EntryHandler {
         }
     }
 
-    wrapCallBack (callback: any) {
-         
+    wrapCallBack(callback: any) {
         return (error: any, response: any) => {
-            let body = response.body;  
-
+            let body = response.body;
             if (typeof body === "string") {
                 body = body.trim();
-
                 try {
                     body = JSON.stringify(JSON.parse(body));
-                } catch (ex) {
+                }
+                catch (ex) {
                     body = JSON.stringify({
                         message: body
                     });
                 }
+            } else {
+                body = JSON.stringify(body);
             }
-        
+
+            response.body = body;
             callback(error, response);
         };
     }
