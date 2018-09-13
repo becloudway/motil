@@ -1,6 +1,6 @@
 {
   "name": "motil-formvalidation-react",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Helper classes for rule based form validation",
   "main": "./dist/index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "typescript": "^3.0.3"
   },
   "dependencies": {
-    "react": "^16.5.0",
-    "motil-validation-engine": "^1.0.0"
+    "motil-validation-engine": "^1.1.0",
+    "react": "^16.5.0"
   }
 }
