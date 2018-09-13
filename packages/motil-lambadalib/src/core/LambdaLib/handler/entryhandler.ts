@@ -3,12 +3,16 @@ import { DecoratorUtil } from "..";
 import "reflect-metadata";
 import { HttpMethod } from "../enum";
 
+import { ValidationEngine } from "motil-validation-engine";
+
 export abstract class EntryHandler {
     private _event: any;
     private _context: Context;
     private _callback: Callback;
     private _method: HttpMethod;
     private _cors: any;
+
+    private _valid: boolean;
 
     private _baseUrl: string = "";
 
@@ -22,6 +26,8 @@ export abstract class EntryHandler {
         this._method = event.httpMethod;
         
         this._route = null;
+
+        this._valid = false;
 
         this.preInit();
         this.init();
@@ -62,7 +68,7 @@ export abstract class EntryHandler {
         }
     }
 
-    wrapCallBack(callback: any) {
+    private wrapCallBack(callback: any) {
         return (error: any, response: any) => {
             let body = response.body;
             if (typeof body === "string") {
@@ -84,12 +90,55 @@ export abstract class EntryHandler {
         };
     }
 
+    public setExecutionMethod (decorator: any) {
+        if (decorator.decorator === "API"
+            && (decorator.url === "*" || this.baseUrl + decorator.url === this.event.resource)
+            && (decorator.method === "*" || this.event.httpMethod === decorator.method)) {
+
+            return decorator.originalMethod.bind(this);
+        }
+    }
+
+    public setCors (decorator: any) {
+        if ((decorator.decorator === "CORS" || this.cors)) {
+
+            return (error: any, response: any) => {
+                response.headers = {...response.header, ...(decorator.cors || this.cors)};
+                this.callback(error, response);
+            };
+        }
+    }
+
+    public validatePathParameters (decorator: any) {
+        if (decorator.decorator !== "PATH-VALIDATION") {
+            return true;
+        }
+
+        let validationEngine = new ValidationEngine(this.event.pathParameters, decorator.rules);
+
+        return validationEngine.processRules().isOk;
+    }
+
+    public validateBody (decorator: any) {
+        if (decorator.decorator !== "BODY-VALIDATION") {
+            return true;
+        }
+
+        let validationEngine = new ValidationEngine(this.event.validateBody, decorator.rules);
+
+        return validationEngine.processRules().isOk;
+
+    }
+
     public executeRoute () {
         const names = Object.getOwnPropertyNames(Object.getPrototypeOf(this));
         
         let execute = null;
         let callback = this.callback;
-        let corsIsSet = false;
+        let newCallback = null;
+
+        let pathValid: any = true;
+        let bodyValid: any = true;
 
         for (let v of names) {
             let decorators = DecoratorUtil.getDecorators(this, v);
@@ -98,27 +147,20 @@ export abstract class EntryHandler {
             }
 
             for (let d of decorators) {
-                if (d.decorator === "API"
-                    && (d.url === "*" || this.baseUrl + d.url === this.event.resource)
-                    && (d.method === "*" || this.event.httpMethod === d.method)) {
-                    execute = d.originalMethod.bind(this);
-                } 
-
-                if ((d.decorator === "CORS" || this.cors) && !corsIsSet) {
-                    corsIsSet = true;
-
-                    callback = (error, response) => {
-                        response.headers = {...response.header, ...(d.cors || this.cors)};
-                        this.callback(error, response);
-                    };
-                }
+                if (!execute) execute = this.setExecutionMethod(d);
+                if (!newCallback) newCallback = this.setCors(d);
+                
+                pathValid = this.validatePathParameters(d);
+                bodyValid = this.validateBody(d);
             }
 
-
         
-            if (execute) {
-                execute(this.event, this.context, this.wrapCallBack(callback));
+            if (execute && pathValid && bodyValid) {
+
+                execute(this.event, this.context, this.wrapCallBack(newCallback || callback));
                 return;
+            } else if (!pathValid || !bodyValid) {
+                console.log("JUPTIE TELEUPTIE");
             }
         }
     }
