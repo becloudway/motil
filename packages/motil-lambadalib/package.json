@@ -1,6 +1,6 @@
 {
   "name": "motil-lambadalib",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "Library for handling lambda functions in node.js in a more structured way",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
