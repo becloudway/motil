@@ -16,5 +16,6 @@
   "dependencies": {
     "motil-validation-engine": "^1.1.0",
     "react": "^16.5.0"
-  }
+  },
+  "gitHead": "de687d3e20d74ddab309b3fceaa553abaf5a9e38"
 }
