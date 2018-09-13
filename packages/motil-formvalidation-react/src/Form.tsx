@@ -83,9 +83,7 @@ export abstract class Form extends React.Component<any, FormState> {
     processRules (rules, target) {
         let keys = Object.keys(rules);
         let final = true;
-
-        console.log(target);
-
+        
         let error = {};
 
         for (let k of keys) {
