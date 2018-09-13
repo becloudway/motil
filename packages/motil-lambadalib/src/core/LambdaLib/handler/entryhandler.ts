@@ -91,7 +91,6 @@ export abstract class EntryHandler {
         let callback = this.callback;
         let corsIsSet = false;
 
-
         for (let v of names) {
             let decorators = DecoratorUtil.getDecorators(this, v);
             if (decorators.length <= 0) {
@@ -107,6 +106,7 @@ export abstract class EntryHandler {
 
                 if ((d.decorator === "CORS" || this.cors) && !corsIsSet) {
                     corsIsSet = true;
+
                     callback = (error, response) => {
                         response.headers = {...response.header, ...(d.cors || this.cors)};
                         this.callback(error, response);
