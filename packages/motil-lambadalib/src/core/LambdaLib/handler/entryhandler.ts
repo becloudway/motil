@@ -109,25 +109,39 @@ export abstract class EntryHandler {
         }
     }
 
-    public validatePathParameters (decorator: any) {
+    validatePathParameters(decorator: any) {
         if (decorator.decorator !== "PATH-VALIDATION") {
             return true;
         }
 
+        if (this.event.pathParameters == null) {
+            return false;
+        }
+        
         let validationEngine = new ValidationEngine(this.event.pathParameters, decorator.rules);
-
         return validationEngine.processRules().isOk;
     }
 
-    public validateBody (decorator: any) {
+    validateBody(decorator: any) {
         if (decorator.decorator !== "BODY-VALIDATION") {
             return true;
         }
 
-        let validationEngine = new ValidationEngine(this.event.validateBody, decorator.rules);
+        if (this.event.body == null) {
+            return false;
+        }
 
-        return validationEngine.processRules().isOk;
+        let body = this.event.body;
+        try {
+            body = JSON.parse(body);
+        } catch (ex) {
+            return false;
+        }
 
+        let validationEngine = new ValidationEngine(body, decorator.rules);
+        let result = validationEngine.processRules();
+
+        return result.isOk;
     }
 
     public executeRoute () {
@@ -156,11 +170,12 @@ export abstract class EntryHandler {
 
         
             if (execute && pathValid && bodyValid) {
-
                 execute(this.event, this.context, this.wrapCallBack(newCallback || callback));
                 return;
-            } else if (!pathValid || !bodyValid) {
-                console.log("JUPTIE TELEUPTIE");
+            }
+            else if (!pathValid || !bodyValid) {
+                callback(null, { statusCode: 404, body :  JSON.stringify({message: "Invalid input"})});
+                return;
             }
         }
     }
