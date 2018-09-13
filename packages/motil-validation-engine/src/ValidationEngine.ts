@@ -95,7 +95,7 @@ export class ValidationEngine {
         return false;
     }
 
-    processRules (rules, target) {
+    processRules (rules?, target?) {
         rules = rules || this.rules;
         target = target || this.target;
 

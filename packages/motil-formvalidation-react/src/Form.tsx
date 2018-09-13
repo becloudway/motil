@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import {ValidationEngine} from "motil-validation-engine";
+
 export interface FormState {
     error?: any;
     [x: string]: any;
@@ -21,6 +23,8 @@ export abstract class Form extends React.Component<any, FormState> {
     target: string;
     rules: FormValidationRules;
 
+    validationEngine: ValidationEngine;
+
     constructor (props: any, state: FormState, target: string, rules: FormValidationRules, functions?: FormFunctions) {
         super(props);
 
@@ -34,8 +38,11 @@ export abstract class Form extends React.Component<any, FormState> {
         this.target = target;
         this.rules = rules;
 
+        this.validationEngine = new ValidationEngine(this.target, this.rules, functions);
+
         this.onSubmit = this.onSubmit.bind(this);
-        this.functions = {required: this.required, max: this.max, min: this.min, ...functions};
+
+
     }
 
     abstract submit (e: React.FormEvent);
@@ -54,31 +61,7 @@ export abstract class Form extends React.Component<any, FormState> {
 
     }
 
-    required (value) {
-        if (typeof value !== "undefined" && value != null && value.trim().length >= 0) {
-            return true;
-        }
 
-        return false;
-    }
-
-    min (value, p) {
-
-        if (typeof value !== "undefined" && value.trim().length >= p) {
-            return true;
-        }
-
-        return false;
-    }
-
-    max (value, p) {
-
-        if (typeof value !== "undefined" && value.trim().length <= p) {
-            return true;
-        }
-        
-        return false;
-    }
 
     processRules (rules, target) {
         let keys = Object.keys(rules);
@@ -86,35 +69,12 @@ export abstract class Form extends React.Component<any, FormState> {
         
         let error = {};
 
-        for (let k of keys) {
-            let keyValue = rules[k];
-            let rulesSplit = keyValue.split ("|");
-
-            for (let rule of rulesSplit) {
-                let params = rule.split(":");
-
-                let f = params[0];
-                let p = null;
-
-                if (params.length > 1) {
-                    p = params[1];
-                } 
-
-                let result = this.functions[f](target[k], p);
-
-                if (!result) {
-                    error[k] = true;
-                    final = false;
-
-                    break;
-                }
-            }
-        }
+        let result = this.validationEngine.processRules();
 
         this.setState({
-            error: error
+            error: result.errors
         });
 
-        return final;
+        return result.isOk;
     }
 }
