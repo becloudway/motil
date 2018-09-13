@@ -119,7 +119,8 @@ export abstract class EntryHandler {
         }
         
         let validationEngine = new ValidationEngine(this.event.pathParameters, decorator.rules);
-        return validationEngine.processRules().isOk;
+        let result = validationEngine.processRules();
+        return result.isOk;
     }
 
     validateBody(decorator: any) {
@@ -164,8 +165,8 @@ export abstract class EntryHandler {
                 if (!execute) execute = this.setExecutionMethod(d);
                 if (!newCallback) newCallback = this.setCors(d);
                 
-                pathValid = this.validatePathParameters(d);
-                bodyValid = this.validateBody(d);
+                if (pathValid) pathValid = this.validatePathParameters(d);
+                if (bodyValid) bodyValid = this.validateBody(d);
             }
 
         
