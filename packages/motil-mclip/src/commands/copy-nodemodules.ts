@@ -46,7 +46,7 @@ export default class CopyNode extends Command {
             err: any,
             results: any
         ) {
-            if (err) {
+            if (err) { 
                 console.error(err);
                 return;
             }
