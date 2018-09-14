@@ -1,6 +1,7 @@
 import {Context, Callback} from "aws-lambda";
 import "reflect-metadata";
 import { HttpMethod } from "../enum";
+import { ValidationEngine } from "motil-validation-engine";
 
 export abstract class EntryHandler {
     private _event: any;
@@ -25,9 +26,6 @@ export abstract class EntryHandler {
         this._route = null;
 
         this._valid = false;
-
-        this.preInit();
-        this.init();
     }
 
     public async init () {
@@ -66,6 +64,25 @@ export abstract class EntryHandler {
             response.body = body;
             callback(error, response);
         };
+    }
+
+    validateBody(rules: any) {
+
+        if (this.event.body == null) {
+            return false;
+        }
+
+        let body = this.event.body;
+        try {
+            body = JSON.parse(body);
+        } catch (ex) {
+            return false;
+        }
+
+        let validationEngine = new ValidationEngine(body, rules);
+        let result = validationEngine.processRules();
+
+        return result.isOk;
     }
 
 

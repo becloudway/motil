@@ -2,11 +2,18 @@ import {Context, Callback} from "aws-lambda";
 import Chalk from "chalk";
 import { QueryResponse } from "../interfaces";
 import { QueryResponseObject } from "./QueryResponseObject";
+import { RouteEntryHandler, AnnotatedEntryHandler } from "../handler";
 
 export class Util {
     static wrap (Handler: any) {
         return function (event: any, context: Context, callback: Callback) {
             return new Handler(event, context, callback);
+        }
+    }
+
+    static routedWrap<T> (Handler: any, config: T) {
+        return function (event: any, context: Context, callback: Callback) {
+            return (<RouteEntryHandler> new Handler(event, context, callback)).initRoute<T>(config);
         }
     }
 

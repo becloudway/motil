@@ -7,14 +7,22 @@ export abstract class Route {
     private _path: string;
     private _method: HttpMethod;
 
-    constructor (path: string, method: HttpMethod) {
+    private _handler: any;
+
+    constructor (path: string, method: HttpMethod, handler: any) {
         this._path = path;
         this._method = method;
+
+        this._handler = handler;
     }
 
-    abstract cors () : any;
+    configuration<T>(config: T): any {};
 
-    abstract validateBody (body: Object): boolean;
+    cleanup () : boolean { return true };
+
+    cors () : any {}
+
+    validateBody (body: Object): boolean { return true };
 
     abstract run (event: any, context: Context) : Promise<QueryResponse>;
 
@@ -24,5 +32,9 @@ export abstract class Route {
 
     get httpMethod () {
         return this._method;
+    }
+
+    get handler () {
+        return this._handler;
     }
 }

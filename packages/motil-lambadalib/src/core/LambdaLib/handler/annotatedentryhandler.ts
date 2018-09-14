@@ -10,6 +10,8 @@ export abstract class AnnotatedEntryHandler extends EntryHandler {
    
     constructor (event: any, context: Context, callback: Callback) {
         super(event, context, callback);
+
+        this.init();
     }
 
     
@@ -74,21 +76,7 @@ export abstract class AnnotatedEntryHandler extends EntryHandler {
             return true;
         }
 
-        if (this.event.body == null) {
-            return false;
-        }
-
-        let body = this.event.body;
-        try {
-            body = JSON.parse(body);
-        } catch (ex) {
-            return false;
-        }
-
-        let validationEngine = new ValidationEngine(body, decorator.rules);
-        let result = validationEngine.processRules();
-
-        return result.isOk;
+        return super.validateBody(decorator.rules);
     }
 
     public executeRoute () {

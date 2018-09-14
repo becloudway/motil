@@ -12,6 +12,7 @@ import * as os from "os";
 import * as copynode from "copy-node-modules";
 
 console.log(copynode);
+console.log("Hey");
 
 const DIR = process.cwd();
 
@@ -37,7 +38,12 @@ export default class CopyNode extends Command {
         let inPath = !this.checkPathStart(input) ? DIR + "/" + input : input;
 
         console.log(outPath, inPath);
-        copynode(input, out, { devDependencies: false }, function(
+        copynode(input, out, { devDependencies: false, filter: (v: string) => {
+            let index = v.indexOf("node_modules");
+            let secondIndex = v.indexOf("node_modules", index + 1);
+            console.log("Filter");
+            return (secondIndex == -1);
+        } }, function(
             err: any,
             results: any
         ) {
