@@ -7,7 +7,7 @@ import { Util } from "./util";
 export class OptionsRoute extends Route {
     
     run(event: any, context: Context): Promise<QueryResponse> {
-        return new Promise (async (resolve, reject) => {
+        return new Promise ((resolve, reject) => {
             const response: any = Util.createResponseBody();
 
             resolve(response);
