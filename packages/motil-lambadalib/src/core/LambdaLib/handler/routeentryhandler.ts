@@ -41,7 +41,7 @@ export abstract class RouteEntryHandler extends EntryHandler {
 
     async runRoute <T> (route: Route, configuration: T) {
         await this.setup();
-
+ 
         route.configuration<T>(configuration);
 
         let response: QueryResponse;
