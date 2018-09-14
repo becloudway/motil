@@ -41,7 +41,6 @@ export default class CopyNode extends Command {
         copynode(input, out, { devDependencies: false, filter: (v: string) => {
             let index = v.indexOf("node_modules");
             let secondIndex = v.indexOf("node_modules", index + 1);
-            console.log("Filter");
             return (secondIndex == -1);
         } }, function(
             err: any,
