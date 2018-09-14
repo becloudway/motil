@@ -29,8 +29,8 @@ export abstract class RouteEntryHandler extends EntryHandler {
         const method: HttpMethod = this.event.httpMethod;
 
         for (let route of this._routes) {
-            if ((route.path === "*" || route.path === path + this.baseUrl)
-            && (route.httpMethod === "*" || route.httpMethod === method)) {
+            if ((route.path === "*" || path === this.baseUrl + route.path)
+            && (route.httpMethod === "*" || method === route.httpMethod)) {
                 await this.runRoute<T>(route, configuration);
                 break;
             }
