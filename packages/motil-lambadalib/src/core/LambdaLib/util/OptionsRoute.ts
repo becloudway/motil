@@ -1,5 +1,8 @@
-import { Route, QueryResponse, Util } from "..";
+
 import { Context } from "aws-lambda";
+import { Route } from "../handler/route";
+import { QueryResponse } from "../interfaces/queryresponse";
+import { Util } from "./util";
 
 export class OptionsRoute extends Route {
     
