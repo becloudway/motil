@@ -37,12 +37,15 @@ export default class CopyNode extends Command {
         let outPath = !this.checkPathStart(out) ? DIR + "/" + out : out;
         let inPath = !this.checkPathStart(input) ? DIR + "/" + input : input;
 
-        console.log(outPath, inPath);
-        copynode(input, out, { devDependencies: false, filter: (v: string) => {
+        let filter = (v: string) => {
             let index = v.indexOf("node_modules");
             let secondIndex = v.indexOf("node_modules", index + 1);
+            
             return (secondIndex == -1);
-        } }, function(
+        }
+
+        console.log(outPath, inPath);
+        copynode(input, out, { devDependencies: false, filter: filter }, function(
             err: any,
             results: any
         ) {
