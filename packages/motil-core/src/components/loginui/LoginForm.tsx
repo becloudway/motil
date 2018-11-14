@@ -5,8 +5,19 @@ import { InputElement, FormGroup, LabelElement } from "../baseui/FormElements/";
 
 import { Row, Col } from "../baseui/ContentElements/Grid";
 
+export interface LoginFormProps {
+    credentials: {
+      username: string,
+      password: string
+    },
+    inputHandler: any,
+    loginHandler: any,
+    title: any
+}
+
 export class LoginForm extends React.Component<any> {
-    constructor(props?: any) {
+    public props: LoginFormProps;
+    constructor(props?: LoginFormProps) {
         super(props);
     }
 
@@ -14,7 +25,7 @@ export class LoginForm extends React.Component<any> {
         return (
             <LoginBox>
                 <LoginLogo path="/">
-                    <b>IOT</b>-OTA
+                  <span>{this.props.title}</span> 
                 </LoginLogo>
                 <LoginBody message="Please login, to use the application!"
                 >
