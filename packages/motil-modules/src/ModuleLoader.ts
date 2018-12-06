@@ -1,44 +1,43 @@
 import { Module } from "./Module";
 import { ComponentModule } from "./ComponentModule";
+import { ServiceModule } from "./ServiceModule";
+
+//TODO: Add support for ServiceModules
+//TODO: Add better typings
 
 export class ModuleLoader {
     private _enabled: boolean = false;
-    private _modules: Array<ComponentModule> = [];
-    private _enabledModules: Array<any> = [];
+    private _modules: Array<ComponentModule | ServiceModule> = [];
+    private _enabledModules: any;
 
-    constructor () {
-    }
-
-    register (module: any) {
+    register (module: any): void {
         this._enabledModules.push(module);
     }
 
     loadModules () {
-        if (!this._enabledModules) {
-            console.warn("No modules found!");
-        } else {
-            this._modules = [];
+        this._modules = [];
 
-            this._enabled = true;
+        this._enabled = true;
 
-            for (let module of this._enabledModules) {
-                console.debug("Loading <" + module.name +">");
+        for (let module of this._enabledModules) {
+            console.log("Loading <" + module.name +">");
 
-                let m = new module(this);
+            let m = new module(this);
 
-                this._modules.push(m);
-                m.onLoad();
-            }
+            this._modules.push(m);
+            m.onLoad();
         }
     }
 
-    getNavigation () {
+    getNavigation (): any {
         let navigation = [];
         if (!this._enabled) {
             return navigation;
         }
 
         for (let m of this._modules) {
+            if (!(m instanceof ComponentModule))
+                continue;
 
             navigation = [...navigation, ...m.setNavigation()];
         }
@@ -47,13 +46,15 @@ export class ModuleLoader {
 
     }
 
-    getRoutes () {
+    getRoutes (): any {
         let routes = [];
         if (!this._enabled) {
             return routes;
         }
 
         for (let m of this._modules) {
+            if (!(m instanceof ComponentModule))
+                continue;
 
             routes = [...routes, ...m.setRoutes()];
         }
@@ -61,13 +62,15 @@ export class ModuleLoader {
         return routes;
     }
 
-    getStores () {
+    getStores (): any {
         let stores = {};
         if (!this._enabled) {
             return stores;
         }
 
         for (let m of this._modules) {
+            if (!(m instanceof ComponentModule))
+                continue;
 
             stores = {...stores, ...m.setStores()};
         }

@@ -7,6 +7,10 @@ export interface FormState {
     [x: string]: any;
 }
 
+export interface FormProps {
+    [x: string]: any;
+}
+
 export interface FormValidationRules {
     [fieldName: string]: string;
 }
@@ -15,15 +19,15 @@ export interface FormFunctions {
     [functionName: string]: (value: any, param: any) => boolean;
 } 
 
-export abstract class Form extends React.Component<any, FormState> {
-    props: any;
-    state: any;
-    functions: FormFunctions;
+export abstract class Form extends React.Component<FormProps, FormState> {
+    public props: FormProps;
+    public state: FormState;
+    
+    private functions: FormFunctions;
+    private target: string;
+    private rules: FormValidationRules;
 
-    target: string;
-    rules: FormValidationRules;
-
-    validationEngine: ValidationEngine;
+    private validationEngine: ValidationEngine;
 
     constructor (props: any, state: FormState, target: string, rules: FormValidationRules, functions?: FormFunctions) {
         super(props);
@@ -41,31 +45,26 @@ export abstract class Form extends React.Component<any, FormState> {
         this.validationEngine = new ValidationEngine(this.target, this.rules, functions);
 
         this.onSubmit = this.onSubmit.bind(this);
-
-
     }
 
-    abstract submit (e: React.FormEvent);
+    public abstract submit (e: React.FormEvent): any;
 
-    onSubmit (e: React.FormEvent) {
+    public onSubmit (e: React.FormEvent) {
         e.preventDefault();
 
-        const target = this.state[this.target];
+        const target: any = this.state[this.target];
 
         if (this.processRules(this.rules, target)) {
             this.submit(e);
             return true;
-        } else {
-            return false;
         }
 
+        return false;
     }
 
-
-
-    processRules (rules, target) {
-        let keys = Object.keys(rules);
-        let final = true;
+    private processRules (rules: FormValidationRules, target: any): boolean {
+        let keys: Array<string> = Object.keys(rules);
+        let final: boolean = true;
         
         let error = {};
 

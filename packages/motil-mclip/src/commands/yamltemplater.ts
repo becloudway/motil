@@ -1,8 +1,6 @@
-import { Command, CommandLoader } from "../commandloader";
-import * as Commander from "commander";
-import Chalk from "chalk";
+import { Command } from "../command";
 
-import * as yamlLint from "yaml-lint";
+import Chalk from "chalk";
 
 import * as fs from "fs";
 import chalk from "chalk";
@@ -13,6 +11,7 @@ import {YamlUtil} from "../util/yaml";
 
 const DIR = process.cwd();
 
+// TODO: Add support for multiple stacks
 export default class YalmTemplater extends Command {
 
     public action(...args: any[]): void {

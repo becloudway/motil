@@ -1,23 +1,13 @@
-import { Command, CommandLoader } from "../commandloader";
-import * as Commander from "commander";
+import { Command } from "../command";
+
 import Chalk from "chalk";
 
-import * as yamlLint from "yaml-lint";
-
-import * as fs from "fs";
-import chalk from "chalk";
-
-import * as os from "os";
-
 import * as copynode from "copy-node-modules";
-
-console.log(copynode);
-console.log("Hey");
 
 const DIR = process.cwd();
 
 export default class CopyNode extends Command {
-    public action(...args: any[]): void {
+    public action(...args: string[]): void {
         let command = args.pop();
 
         console.log(Chalk.red("Working dir: ") + DIR);
@@ -68,6 +58,6 @@ export default class CopyNode extends Command {
         this.command = "copy-modules";
         this.options = ["-o, --output <value>", "-i, --input <value>"];
         this.description =
-            "Fetches templ-snips.yaml files from the sub-directories of the given --input-dir and replaces resource: '<replace>' with the content from snips in the template file";
+            "Quickly copys node modules from target package.json to the output directory.";
     }
 }

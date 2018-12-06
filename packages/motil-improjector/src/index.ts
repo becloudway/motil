@@ -1,14 +1,18 @@
 import InjectPlugin from 'webpack-inject-plugin';
 
+export interface ModuleInjectorOptions {
+    prefix?: string;
+}
+
 export class ModuleInjector {
-    options: any;
-    constructor(options) {
+    private options: ModuleInjectorOptions;
+    
+    constructor(options: ModuleInjectorOptions) {
         this.options = options || {};
     }
     
-    getInjectables () {
-        const x = process;
-        const pathToPackage = x.cwd() + "/package.json";
+    private getInjectables (): Array<string> {
+        const pathToPackage: string = process.cwd() + "/package.json";
         
         let config = require(pathToPackage);
         
@@ -18,7 +22,6 @@ export class ModuleInjector {
         let injectionArray = [];
         for (let k of keys) {
             if (k.startsWith(this.options.prefix || "impojector")) {
-                console.log("injecting: " + k)
                 injectionArray.push(`import "${k}"; `);
             }
         }
@@ -26,15 +29,14 @@ export class ModuleInjector {
         return injectionArray;
     }
     
-    customLoader() {
+    private customLoader(): () => String {
         return () => {
             let injecting = this.getInjectables().join("\n");
-            console.log("injecting: ", injecting);
             return injecting;
         }
     }
 
-    getInjector () {
+    public getInjector (): any {
         return new InjectPlugin(this.customLoader());
     }
 }

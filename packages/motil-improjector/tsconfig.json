@@ -3,18 +3,23 @@
         "outDir": "./dist/",
         "declaration": true,
         "sourceMap": false,
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "module": "commonjs",
         "target": "es5",
         "moduleResolution": "node",
         "typeRoots": [
-            "./node_modules/@types/"
+            "./node_modules/@types/",
+            "./typings/"
         ],
         "lib": [
             "dom",
             "es6",
             "es2015.iterable"
-        ]
+        ],
+        "baseUrl": "./",
+		"paths" : {
+			"*" : ["typings/*"]
+		},
     },
     "include": [
         "./src/**/*"

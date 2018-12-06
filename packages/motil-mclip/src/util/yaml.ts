@@ -7,9 +7,8 @@ import * as yamlLint from "yaml-lint";
 
 export class YamlUtil {
     public static isValidYaml (yamlData: string): Promise<boolean> {
-        return new Promise(async (resolve, reject) => {
+        return new Promise(async (resolve) => {
             try {
-
                 let validate = await yamlLint.lint(yamlData);
                 resolve(true);
             } catch (ex) {
@@ -22,7 +21,7 @@ export class YamlUtil {
     }
 
     public static isValidYamlFile (file: string) : Promise<boolean> {
-        return new Promise(async (resolve, reject) => {
+        return new Promise(async (resolve) => {
             try {
                 let fileData = fs.readFileSync(file, "UTF-8");
                 let validate = await yamlLint.lint(fileData);

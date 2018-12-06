@@ -9,4 +9,8 @@ export abstract class Module {
     
     abstract onLoad ();
     abstract onUnload ();
+
+    get moduleLoader () {
+        return this._moduleLoader;
+    }
 }

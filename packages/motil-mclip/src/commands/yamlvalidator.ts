@@ -1,4 +1,4 @@
-import { Command, CommandLoader } from "../commandloader";
+import { Command } from "../command";
 import * as Commander from "commander";
 import Chalk from "chalk";
 
@@ -28,7 +28,7 @@ export default class YalmTemplater extends Command {
     
     public setConfiguration(): void {
         this.command = "yaml-validator <file>"
-        this.description = "Validates the given file";
+        this.description = "Validates the given yaml file";
         this.options = [];
     }
 

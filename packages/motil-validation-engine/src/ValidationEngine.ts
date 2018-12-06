@@ -11,6 +11,13 @@ export interface FormFunctions {
     [functionName: string]: (value: any, param: any) => boolean;
 } 
 
+export interface ValidationResult {
+    isOk: boolean,
+    errors: {
+        [x: string]: boolean;
+    }
+}
+
 export class ValidationEngine {
     props: any;
     state: any;
@@ -31,7 +38,8 @@ export class ValidationEngine {
             isRegex: this.isRegex,
             numMin: this.numMin,
             numMax: this.numMax,
-            ...functions};
+            ...functions
+        };
     }
 
 
@@ -95,14 +103,16 @@ export class ValidationEngine {
         return false;
     }
 
-    processRules (rules?, target?) {
+    processRules (rules?: FormValidationRules, target?: Object): ValidationResult {
         rules = rules || this.rules;
         target = target || this.target;
 
-        let keys = Object.keys(rules);
-        let final = true;
+        let validationResult: ValidationResult;
+
+        let keys: Array<string> = Object.keys(rules);
+        let final: boolean = true;
         
-        let error = {};
+        let error: {[x: string]: boolean} = {};
 
         for (let k of keys) {
             let keyValue = rules[k];
@@ -111,14 +121,14 @@ export class ValidationEngine {
             for (let rule of rulesSplit) {
                 let params = rule.split(":");
 
-                let f = params[0];
-                let p = null;
+                let validationFunction = params[0];
+                let functionParameters = null;
 
                 if (params.length > 1) {
-                    p = params[1];
+                    functionParameters = params[1];
                 } 
 
-                let result = this.functions[f](target[k], p);
+                let result = this.functions[validationFunction](target[k], functionParameters);
 
                 if (!result) {
                     error[k] = true;
@@ -129,9 +139,9 @@ export class ValidationEngine {
             }
         }
 
-        return {
-            isOk: final,
-            errors: error
-        };
+        validationResult.isOk = final;
+        validationResult.errors = error;
+
+        return validationResult;
     }
 }
