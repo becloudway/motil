@@ -4,14 +4,17 @@
   "description": "Contians the module loader and classes for loading modules by installing them as seperate files.",
   "main": "./dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "jest --config ./jest.json && tsc",
     "build-watch": "tsc --watch",
     "test": "jest"
   },
   "author": "Mitch Mommers",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^23.3.10",
     "@types/node": "^10.9.4",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.5",
     "typescript": "^3.0.3"
   }
 }

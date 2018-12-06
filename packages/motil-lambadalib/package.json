@@ -6,7 +6,7 @@
   "typings": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
+    "build": "jest --config jest.json && tsc",
     "dev-watch": "tsc -w"
   },
   "author": "Mitch Mommers",
@@ -20,6 +20,9 @@
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.11",
+    "@types/jest": "^23.3.10",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.5",
     "typescript": "^3.0.1"
   },
   "gitHead": "1b1944f29161812b827ba800d139f7ffaa2ece19"

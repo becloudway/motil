@@ -52,6 +52,7 @@ export default class YalmTemplater extends Command {
 
         let templateContent = fs.readFileSync(absoluteTemplatePath, "UTF-8");
         let snips = "";
+        
         for (let dir of dirs) {
             let checking = absoluteDirPath + "/" + dir; 
             let file = "/templ-snip.yaml";

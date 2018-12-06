@@ -19,31 +19,28 @@ export interface ValidationResult {
 }
 
 export class ValidationEngine {
-    props: any;
-    state: any;
-    functions: FormFunctions;
+    private functions: FormFunctions;
 
-    target: Object;
-    rules: FormValidationRules;
+    private target: Object;
+    private rules: FormValidationRules;
 
     constructor (target: Object, rules: FormValidationRules, functions?: FormFunctions) {
         this.rules = rules;
         this.target = target;
 
         this.functions = {
-            required: this.required, 
-            max: this.max, 
-            min: this.min,
-            isNumber: this.isNumber,
-            isRegex: this.isRegex,
-            numMin: this.numMin,
-            numMax: this.numMax,
+            required: ValidationEngine.required, 
+            max: ValidationEngine.max, 
+            min: ValidationEngine.min,
+            isNumber: ValidationEngine.isNumber,
+            isRegex: ValidationEngine.isRegex,
+            numMin: ValidationEngine.numMin,
+            numMax: ValidationEngine.numMax,
             ...functions
         };
     }
 
-
-    required (value) {
+    public static required (value) {
         if (typeof value !== "undefined" && value != null && value.trim().length > 0) {
             return true;
         }
@@ -51,7 +48,7 @@ export class ValidationEngine {
         return false;
     }
 
-    min (value, p) {
+    public static min (value, p) {
 
         if (typeof value !== "undefined" && value.trim().length >= p) {
             return true;
@@ -60,7 +57,7 @@ export class ValidationEngine {
         return false;
     }
 
-    max (value, p) {
+    public static max (value, p) {
 
         if (typeof value !== "undefined" && value.trim().length <= p) {
             return true;
@@ -69,7 +66,7 @@ export class ValidationEngine {
         return false;
     }
 
-    numMax(value, p) {
+    public static numMax(value, p) {
         if (typeof value !== "undefined" && value <= p) {
             return true;
         }
@@ -77,7 +74,7 @@ export class ValidationEngine {
         return false;
     }
 
-    numMin(value, p) {
+    public static numMin(value, p) {
         if (typeof value !== "undefined" && value >= p) {
             return true;
         }
@@ -85,7 +82,7 @@ export class ValidationEngine {
         return false;
     }
 
-    isNumber (value, p) {
+    public static isNumber (value) {
         let number = parseInt(value);
         if (typeof value !== "undefined" && !Number.isNaN(number)) {
             return true;
@@ -94,20 +91,23 @@ export class ValidationEngine {
         return false;
     }
 
-    isRegex (value, p) {
+    public static isRegex (value, p) {
         let regex = new RegExp(p);
-        if (typeof value !== "undefined" && !regex.test(value)) {
+        if (typeof value !== "undefined" && regex.test(value)) {
             return true;
         } 
 
         return false;
     }
 
-    processRules (rules?: FormValidationRules, target?: Object): ValidationResult {
+    public processRules (rules?: FormValidationRules, target?: Object): ValidationResult {
         rules = rules || this.rules;
         target = target || this.target;
 
-        let validationResult: ValidationResult;
+        let validationResult: ValidationResult = {
+            isOk: false,
+            errors: {}
+        };
 
         let keys: Array<string> = Object.keys(rules);
         let final: boolean = true;

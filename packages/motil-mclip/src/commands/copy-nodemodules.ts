@@ -34,7 +34,6 @@ export default class CopyNode extends Command {
             return (secondIndex == -1);
         }
 
-        console.log(outPath, inPath);
         copynode(input, out, { devDependencies: false, filter: filter }, function(
             err: any,
             results: any

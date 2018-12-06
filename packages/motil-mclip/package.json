@@ -7,7 +7,7 @@
     "mclip": "./dist/index.js"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "jest --config jest.json && tsc"
   },
   "author": "Mitch Mommers",
   "license": "ISC",
@@ -21,7 +21,10 @@
     "yaml-lint": "^1.2.4"
   },
   "devDependencies": {
+    "@types/jest": "^23.3.10",
     "@types/node": "^10.5.7",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.5",
     "typescript": "^3.0.1"
   },
   "gitHead": "1b1944f29161812b827ba800d139f7ffaa2ece19"

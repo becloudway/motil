@@ -20,5 +20,8 @@
             "scripthost",
             "es2015.iterable"
         ]
-    }
+    },
+    "exclude": [
+        "**/__tests__"
+    ]
 }

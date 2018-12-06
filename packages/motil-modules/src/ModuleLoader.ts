@@ -8,7 +8,7 @@ import { ServiceModule } from "./ServiceModule";
 export class ModuleLoader {
     private _enabled: boolean = false;
     private _modules: Array<ComponentModule | ServiceModule> = [];
-    private _enabledModules: any;
+    private _enabledModules: any = [];
 
     register (module: any): void {
         this._enabledModules.push(module);
@@ -29,7 +29,7 @@ export class ModuleLoader {
         }
     }
 
-    getNavigation (): any {
+    getNavigation (): Array<any> {
         let navigation = [];
         if (!this._enabled) {
             return navigation;
@@ -46,7 +46,7 @@ export class ModuleLoader {
 
     }
 
-    getRoutes (): any {
+    getRoutes (): Array<any> {
         let routes = [];
         if (!this._enabled) {
             return routes;
@@ -62,7 +62,7 @@ export class ModuleLoader {
         return routes;
     }
 
-    getStores (): any {
+    getStores (): {[x: string]: any} {
         let stores = {};
         if (!this._enabled) {
             return stores;
@@ -76,6 +76,11 @@ export class ModuleLoader {
         }
 
         return stores;
+    }
+
+
+    get modules () {
+        return this._modules;
     }
 
 }

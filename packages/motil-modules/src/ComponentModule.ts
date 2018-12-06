@@ -7,7 +7,7 @@ export abstract class ComponentModule extends Module {
         super(moduleLoader);
     }
 
-    abstract setNavigation ();
-    abstract setRoutes ();
-    abstract setStores ();
+    abstract setNavigation (): Array<any>;
+    abstract setRoutes (): Array<any>;
+    abstract setStores (): Object;
 }

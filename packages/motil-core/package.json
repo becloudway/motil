@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
+    "build": "jest --config jest.json && tsc",
     "build-watch": "tsc --watch"
   },
   "author": "Mitch Mommers",
@@ -29,10 +29,13 @@
     "typelevel-ts": "^0.3.1"
   },
   "devDependencies": {
+    "@types/jest": "^23.3.10",
     "@types/lodash": "^4.14.116",
     "@types/react": "^16.4.9",
     "@types/react-router-dom": "^4.3.0",
     "awesome-typescript-loader": "^5.2.0",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.5",
     "typescript": "^3.0.1",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0"
