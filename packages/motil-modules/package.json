@@ -1,6 +1,6 @@
 {
   "name": "motil-modules",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Contians the module loader and classes for loading modules by installing them as seperate files.",
   "main": "./dist/index.js",
   "scripts": {
