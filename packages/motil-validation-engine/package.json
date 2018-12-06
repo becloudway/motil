@@ -1,6 +1,6 @@
 {
   "name": "motil-validation-engine",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Helper classes for rule based form validation",
   "main": "./dist/index.js",
   "scripts": {
