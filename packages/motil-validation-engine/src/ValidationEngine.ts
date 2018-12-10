@@ -1,3 +1,5 @@
+import * as _ from "lodash";
+
 export interface FormState {
     error?: any;
     [x: string]: any;
@@ -83,7 +85,7 @@ export class ValidationEngine {
     }
 
     public static isNumber (value) {
-        let number = parseInt(value);
+        const number = parseInt(value);
         if (typeof value !== "undefined" && !Number.isNaN(number)) {
             return true;
         }
@@ -92,7 +94,7 @@ export class ValidationEngine {
     }
 
     public static isRegex (value, p) {
-        let regex = new RegExp(p);
+        const regex = new RegExp(p);
         if (typeof value !== "undefined" && regex.test(value)) {
             return true;
         } 
@@ -104,42 +106,43 @@ export class ValidationEngine {
         rules = rules || this.rules;
         target = target || this.target;
 
-        let validationResult: ValidationResult = {
+        const validationResult: ValidationResult = {
             isOk: false,
             errors: {}
         };
 
-        let keys: Array<string> = Object.keys(rules);
-        let final: boolean = true;
+        const keys: Array<string> = Object.keys(rules);
+        let hasError: boolean = false;
         
-        let error: {[x: string]: boolean} = {};
+        const error: {[x: string]: boolean} = {};
+        
+        let index = 0;
+        while (!hasError && index < keys.length) {
+            let key = keys[index++];
 
-        for (let k of keys) {
-            let keyValue = rules[k];
-            let rulesSplit = keyValue.split ("|");
+            const keyValue = rules[key];
+            const rulesSplit = keyValue.split ("|");
 
-            for (let rule of rulesSplit) {
-                let params = rule.split(":");
+            for (const rule of rulesSplit) {
+                const params = rule.split(":");
 
-                let validationFunction = params[0];
+                const validationFunction = params[0];
+                
                 let functionParameters = null;
-
                 if (params.length > 1) {
                     functionParameters = params[1];
                 } 
 
-                let result = this.functions[validationFunction](target[k], functionParameters);
+                const result = this.functions[validationFunction](target[key], functionParameters);
 
                 if (!result) {
-                    error[k] = true;
-                    final = false;
-
-                    break;
+                    error[key] = true;
+                    hasError = true;
                 }
             }
         }
 
-        validationResult.isOk = final;
+        validationResult.isOk = !hasError;
         validationResult.errors = error;
 
         return validationResult;

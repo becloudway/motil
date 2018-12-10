@@ -4,8 +4,9 @@
   "description": "Helper classes for rule based form validation",
   "main": "./dist/index.js",
   "scripts": {
-    "build": "jest --config jest.json && tsc",
-    "build-watch": "tsc --watch"
+    "test": "jest --config jest.json",
+    "build": "npm t && tsc",
+    "build:watch": "tsc --watch"
   },
   "author": "Mitch Mommers",
   "license": "ISC",

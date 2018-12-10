@@ -21,10 +21,11 @@ export class QueryResponseObject {
 
     set body (value: any) {
         let result = value;
-        if (typeof value === "string") {
-            if (value.trim().startsWith("{")) {
+
+        if (typeof result === "string") {
+            try {
                 result = JSON.parse(value);
-            } else {
+            } catch (ex) {
                 result = {message: value};
             }
         }

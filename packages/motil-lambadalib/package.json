@@ -5,9 +5,9 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "jest --config jest.json && tsc",
-    "dev-watch": "tsc -w"
+    "test": "jest --config jest.json",
+    "build": "npm t && tsc",
+    "build:watch": "tsc -w"
   },
   "author": "Mitch Mommers",
   "license": "ISC",

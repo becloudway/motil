@@ -1,4 +1,4 @@
-import InjectPlugin from 'webpack-inject-plugin';
+import InjectPlugin from "webpack-inject-plugin";
 
 export interface ModuleInjectorOptions {
     prefix?: string;
@@ -13,27 +13,17 @@ export class ModuleInjector {
     
     private getInjectables (): Array<string> {
         const pathToPackage: string = process.cwd() + "/package.json";
+        const config = require(pathToPackage);
         
-        let config = require(pathToPackage);
+        const deps = config.dependencies;
+        const keys = Object.keys(deps);
         
-        let deps = config.dependencies;
-        let keys = Object.keys(deps);
-        
-        let injectionArray = [];
-        for (let k of keys) {
-            if (k.startsWith(this.options.prefix || "impojector")) {
-                injectionArray.push(`import "${k}"; `);
-            }
-        }
-    
-        return injectionArray;
+        return keys.filter(k => k.startsWith(this.options.prefix)).map(k => `import "${k}"; `);
     }
     
     private customLoader(): () => String {
-        return () => {
-            let injecting = this.getInjectables().join("\n");
-            return injecting;
-        }
+        return () => 
+             this.getInjectables().join("\n");
     }
 
     public getInjector (): any {

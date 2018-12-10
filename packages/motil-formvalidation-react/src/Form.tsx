@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {ValidationEngine} from "motil-validation-engine";
+import { ValidationEngine } from "motil-validation-engine";
 
 export interface FormState {
     error?: any;
@@ -23,7 +23,6 @@ export abstract class Form extends React.Component<FormProps, FormState> {
     public props: FormProps;
     public state: FormState;
     
-    private functions: FormFunctions;
     private target: string;
     private rules: FormValidationRules;
 
@@ -63,12 +62,7 @@ export abstract class Form extends React.Component<FormProps, FormState> {
     }
 
     private processRules (rules: FormValidationRules, target: any): boolean {
-        let keys: Array<string> = Object.keys(rules);
-        let final: boolean = true;
-        
-        let error = {};
-
-        let result = this.validationEngine.processRules();
+        const result = this.validationEngine.processRules();
 
         this.setState({
             error: result.errors

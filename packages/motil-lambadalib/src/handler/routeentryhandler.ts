@@ -51,7 +51,7 @@ export abstract class RouteEntryHandler extends EntryHandler {
             response = await this.run(route);
         }
 
-        let cors = this.checkCors();
+        const cors = this.checkCors();
 
         this.wrapCallBack(cors)(null, response);
         route.cleanup();
@@ -60,9 +60,7 @@ export abstract class RouteEntryHandler extends EntryHandler {
     }
 
     validateRoute (route: Route) : boolean {
-        let valid = route.validateBody(this.event.body);
-
-        return valid;
+        return route.validateBody(this.event.body);
     }
 
     checkCors (origin: string = "*", credentials: boolean = true, headers: string = "Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token", methods: string = "POST, GET, PUT, DELETE, OPTIONS") {
@@ -79,16 +77,7 @@ export abstract class RouteEntryHandler extends EntryHandler {
         };
     }
 
-    run (route: Route): Promise<QueryResponse> {
-        return new Promise(async (resolve, reject) => {
-            let result;
-            try {
-                result = await route.run(this.event, this.context);
-            } catch (ex) {
-                reject(ex);
-            }
-
-            resolve(result);
-        })
+    async run (route: Route): Promise<QueryResponse> {
+        return await route.run(this.event, this.context);
     }
 }

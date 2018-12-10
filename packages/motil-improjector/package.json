@@ -4,8 +4,8 @@
   "description": "Injects module imports in code",
   "main": "./dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "jest --config jest.json && tsc"
+    "test": "jest --config jest.json",
+    "build": "npm t && tsc"
   },
   "author": "Mitch Mommers",
   "license": "ISC",

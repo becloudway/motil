@@ -2,7 +2,7 @@ import { EntryHandler } from "..";
 import { HttpMethod } from "../enum";
 
 export function Api(url: string, method: HttpMethod = HttpMethod.ANY) {
-    return function (target: EntryHandler, key: string, descriptor: any) {
+    return (target: EntryHandler, key: string, descriptor: any) => {
 
         const originalMethod = descriptor.value;
 
@@ -11,7 +11,7 @@ export function Api(url: string, method: HttpMethod = HttpMethod.ANY) {
 }
 
 export function BaseUrl(url: string) {
-    return function (target: any)  {
+    return (target: any) => {
         Reflect.defineMetadata("lambdalib:anotations:baseUrl", {decorator: "BASEURL", url: url}, target);
     }
 }
@@ -23,7 +23,8 @@ export function Cors (origin: string = "*", credentials: boolean = true, headers
         "Access-Control-Allow-Headers" : headers,
         "Access-Control-Allow-Methods": methods
     }
-    return function (target: any, key?: any, descriptor?: any) {
+
+    return (target: any, key?: any, descriptor?: any) => {
         Reflect.defineMetadata("lambdalib:anotations:cors", {decorator: "CORS", cors: cors}, target, key);
     }
 }

@@ -4,14 +4,15 @@
   "description": "Helper classes for rule based form validation",
   "main": "./dist/index.js",
   "scripts": {
-    "build": "jest --config ./jest.json && tsc",
-    "build-watch": "tsc --watch",
-    "test": "jest --config ./jest.json"
+    "test": "jest --config ./jest.json",
+    "build": "npm t && tsc",
+    "build:watch": "tsc --watch"
   },
   "author": "Mitch Mommers",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^23.3.10",
+    "@types/lodash": "^4.14.118",
     "@types/react": "^16.4.14",
     "jest": "^23.6.0",
     "ts-jest": "^23.10.5",

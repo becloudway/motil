@@ -1,6 +1,10 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "lint": "eslint ./packages/**/src/**/*.ts --quiet",
+    "lint:fix": "eslint ./packages/**/src/**/*.ts --quiet --fix"
+  },
   "devDependencies": {
     "lerna": "^3.3.1",
     "tslint": "^5.11.0",

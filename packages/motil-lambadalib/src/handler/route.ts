@@ -16,13 +16,13 @@ export abstract class Route {
         this._handler = handler;
     }
 
-    configuration<T>(config: T): any {};
+    configuration<T>(config: T): any {}
 
-    cleanup () : boolean { return true };
+    cleanup () : boolean { return true }
 
     cors () : any {}
 
-    validateBody (body: Object): boolean { return true };
+    validateBody (body: Object): boolean { return true }
 
     abstract run (event: any, context: Context) : Promise<QueryResponse>;
 

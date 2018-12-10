@@ -1,4 +1,4 @@
-import { ModuleLoader } from "./ModuleLoader";
+import { ModuleLoader } from "../ModuleLoader";
 
 export abstract class Module {
     private _moduleLoader: ModuleLoader;

@@ -1,4 +1,2 @@
-export * from "./ComponentModule";
-export * from "./Module";
+export * from "./module";
 export * from "./ModuleLoader";
-export * from "./ServiceModule";

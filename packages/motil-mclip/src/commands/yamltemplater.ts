@@ -23,8 +23,8 @@ export default class YalmTemplater extends Command {
         console.log(Chalk.green("-- " + Chalk.bold(action) + " --"));
 
         switch (action) {
-            case "pack": 
-                this.pack(command);
+        case "pack": 
+            this.pack(command);
             break;
         }
 

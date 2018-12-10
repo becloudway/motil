@@ -4,9 +4,9 @@
   "description": "Component for AdminLTE and utility classes",
   "main": "./dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "jest --config jest.json && tsc",
-    "build-watch": "tsc --watch"
+    "test": "jest --config jest.json",
+    "build": "npm t && tsc",
+    "build:watch": "tsc --watch"
   },
   "author": "Mitch Mommers",
   "license": "ISC",

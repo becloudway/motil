@@ -47,6 +47,7 @@ export abstract class EntryHandler {
     public wrapCallBack(callback: any) {
         return (error: any, response: any) => {
             let body = response.body;
+            
             if (typeof body === "string") {
                 body = body.trim();
                 try {

@@ -1,4 +1,4 @@
-import {Context, Callback} from "aws-lambda";
+import { Context, Callback } from "aws-lambda";
 import { DecoratorUtil } from "..";
 import "reflect-metadata";
 import { HttpMethod } from "../enum";
@@ -13,13 +13,12 @@ export abstract class AnnotatedEntryHandler extends EntryHandler {
 
         this.init();
     }
-
     
     public async init () {        
         this.decorate();
 
         if (this.method !== HttpMethod.OPTIONS) {
-           await this.noOptions();
+            await this.noOptions();
         }
 
         this.afterInit();
