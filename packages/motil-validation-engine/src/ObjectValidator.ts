@@ -15,9 +15,17 @@ export interface Rule {
     }
 }
 
+// TODO: Add OPTIONAL_BUT_VALIDATE option that will still check other errors but just for the fun I guess :D
+export enum Required {
+    OPTIONAL = "OPTIONAL", REQUIRED = "REQUIRED", OPTIONAL_BUT_VALIDATE = "OPTIONAL_BUT_VALIDATE"
+}
+
 export interface ValidationRules {
     field: string,
     isValid: boolean,
+    isRequired: Required,
+    stopChain: boolean,
+    value: any,
     rules: Rule[]
 }
 
@@ -40,6 +48,10 @@ export class ObjectValidator {
     }
 
     public custom (constraint: any, type: string, message: string, checkFunction: (constraint: any, fieldValue: any) => boolean) {
+        if (this.checkRequiredField() && this._activeRule.stopChain) {
+            return this;
+        }
+
         const rule: Rule = {
             isValid: true,
             type: type,
@@ -50,10 +62,9 @@ export class ObjectValidator {
             }
         }
 
-        const fieldValue = this._target[this._activeRule.field];
-        rule.params.is = fieldValue;
+        rule.params.is = this._activeRule.value;
 
-        const isValid = checkFunction(constraint, fieldValue);
+        const isValid = checkFunction(constraint, this._activeRule.value);
         
         rule.isValid = isValid;
         this._activeRule.isValid = this._activeRule.isValid && isValid;
@@ -64,6 +75,59 @@ export class ObjectValidator {
         return this;
     }
 
+    public setOptional () {
+        this._activeRule.isRequired = Required.OPTIONAL;
+
+        const rule: Rule = {
+            isValid: true,
+            type: "FIELD_REQUIREMENT",
+            params: {
+                constraint: Required.OPTIONAL,
+                is: this._activeRule.field,
+                message: "field is marked as "
+            }
+        }
+        
+
+        if (this.isEmpty(this._activeRule.value)) {
+            this._activeRule.stopChain = true;
+        }
+
+        this._activeRule.rules.push(rule);
+
+        return this;
+    }
+
+    private checkRequiredField () {
+        if (this._activeRule.isRequired !== Required.REQUIRED) {
+            return this;
+        }
+
+        const rule: Rule = {
+            isValid: true,
+            type: "FIELD_REQUIREMENT",
+            params: {
+                constraint: Required.REQUIRED,
+                is: this._activeRule.field,
+                message: "field is marked as "
+            }
+        }
+        
+
+        if (this.isEmpty(this._activeRule.value)) {
+            this._activeRule.stopChain = true;
+
+            rule.isValid = false;
+            this._activeRule.isValid = false;
+            this._result.isValid = false;
+        }
+
+        this._activeRule.rules.push(rule);
+
+        return this;
+    }
+
+
     public and (fieldName: string) {
         this.field(fieldName);
 
@@ -71,8 +135,13 @@ export class ObjectValidator {
     }
 
     public field (fieldName: string) {
+        const fieldValue = this._target[fieldName];
+
         const newRule: ValidationRules = {
             field: fieldName,
+            isRequired: Required.REQUIRED,
+            value: fieldValue,
+            stopChain: false,
             isValid: true,
             rules: []
         }
@@ -85,6 +154,12 @@ export class ObjectValidator {
 
     public validate () {
         this._result.rules = this._rules;
+
+        console.log(JSON.stringify(this._result));
         return this._result;
+    }
+
+    private isEmpty(value){
+        return (value == null || value === '');
     }
 }

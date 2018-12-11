@@ -2,8 +2,9 @@ import { ObjectValidator } from "./ObjectValidator";
 import { INumericValidator, NumericValidator } from "./methods/NumericValidator";
 
 import { applyMixins } from "./util/mixins";
+import { IStringValidator, StringValidator } from "./methods/StringValidator";
 
-export class ValidationEngine extends ObjectValidator implements INumericValidator {
+export class ValidationEngine extends ObjectValidator implements INumericValidator, IStringValidator {
     constructor (target: object) {
         super(target);
     }
@@ -14,6 +15,10 @@ export class ValidationEngine extends ObjectValidator implements INumericValidat
     numEqualMax: (maxAmount: number) => this;
     numEqualMin: (minAmount: number) => this;
     numEqual: (value: number) => this;
+    isNum: () => this;
+
+    // String Validator
+    strMax: (maxAmount: number) => ObjectValidator;
 }
 
-applyMixins(ValidationEngine, [NumericValidator])
+applyMixins(ValidationEngine, [NumericValidator, StringValidator])
