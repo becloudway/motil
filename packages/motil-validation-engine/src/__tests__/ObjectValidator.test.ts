@@ -1,4 +1,4 @@
-import { ObjectValidator, ObjectValidationResult } from "..";
+import { ValidationEngine, ObjectValidationResult } from "..";
 
 import "ts-jest";
 
@@ -12,11 +12,11 @@ function generateTestObject () {
 }
 
 it('testString is required and should be valid', () => {
-    let validationEngine = new ObjectValidator(generateTestObject())
+    let validationEngine = new ValidationEngine(generateTestObject())
         .field("fixedInt")
-            .numberMax(10)
+            .numMax(10)
         .and("fixedInt")
-            .numberMax(3)
+            .numEqual(5)
         .validate();
  
     console.log(JSON.stringify(validationEngine));

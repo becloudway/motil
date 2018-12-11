@@ -21,6 +21,10 @@ export interface ValidationRules {
     rules: Rule[]
 }
 
+export abstract class ObjectValidatorExtension {
+    public abstract custom (constraint: any, type: string, message: string, checkFunction: (constrain: any, fieldValue: any) => boolean): ObjectValidator;
+}
+
 export class ObjectValidator {
     private _target: any;
     private _rules: ValidationRules[] = [];
@@ -33,10 +37,6 @@ export class ObjectValidator {
 
     constructor (target: Object) {
         this._target = target;
-    }
-
-    public numberMax (maxAmount: number) {
-        return this.custom(maxAmount, "NUMBER_MAX", "should be less than", (constraint, fieldValue) => constraint > fieldValue);
     }
 
     public custom (constraint: any, type: string, message: string, checkFunction: (constraint: any, fieldValue: any) => boolean) {

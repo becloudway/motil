@@ -1,5 +1,4 @@
-import { ValidationEngine } from "../";
-import { ValidationResult } from "../";
+import { ValidationResult, ValidationEngine } from "../ValidationEngine.1";
 
 import "ts-jest";
 
