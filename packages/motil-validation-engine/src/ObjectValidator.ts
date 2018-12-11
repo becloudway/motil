@@ -154,8 +154,6 @@ export class ObjectValidator {
 
     public validate () {
         this._result.rules = this._rules;
-
-        console.log(JSON.stringify(this._result));
         return this._result;
     }
 
