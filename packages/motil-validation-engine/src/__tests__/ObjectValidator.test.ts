@@ -14,9 +14,9 @@ function generateTestObject () {
 it('testString is required and should be valid', () => {
     let validationEngine = new ObjectValidator(generateTestObject())
         .field("fixedInt")
-            .numberMax(3)
-        .and("fixedInt")
             .numberMax(10)
+        .and("fixedInt")
+            .numberMax(3)
         .validate();
  
     console.log(JSON.stringify(validationEngine));

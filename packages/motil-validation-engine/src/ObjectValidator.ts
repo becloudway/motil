@@ -1,12 +1,12 @@
 
 
 export interface ObjectValidationResult {
-    isOk: boolean,
+    isValid: boolean,
     rules: ValidationRules[]
 }
 
 export interface Rule {
-    hasFailed: boolean,
+    isValid: boolean,
     type: string,
     params: {
         is: any,
@@ -17,7 +17,7 @@ export interface Rule {
 
 export interface ValidationRules {
     field: string,
-    hasFailed: boolean,
+    isValid: boolean,
     rules: Rule[]
 }
 
@@ -25,7 +25,7 @@ export class ObjectValidator {
     private _target: any;
     private _rules: ValidationRules[] = [];
     private _result: ObjectValidationResult = {
-        isOk: true,
+        isValid: true,
         rules: []
     }
 
@@ -43,7 +43,7 @@ export class ObjectValidator {
 
     public custom (constraint: any, type: string, message: string, checkFunction: (constraint: any, fieldValue: any) => boolean) {
         const rule: Rule = {
-            hasFailed: false,
+            isValid: true,
             type: type,
             params: {
                 constraint: constraint,
@@ -55,11 +55,11 @@ export class ObjectValidator {
         const fieldValue = this._target[this._activeRule.field];
         rule.params.is = fieldValue;
 
-        const hasFailed = !checkFunction(constraint, fieldValue);
+        const isValid = checkFunction(constraint, fieldValue);
         
-        rule.hasFailed = hasFailed;
-        this._activeRule.hasFailed = this._activeRule.hasFailed || hasFailed;
-        this._result.isOk = (this._result.isOk && hasFailed) ? false : this._result.isOk;
+        rule.isValid = isValid;
+        this._activeRule.isValid = this._activeRule.isValid && isValid;
+        this._result.isValid = this._result.isValid && isValid;
 
         this._activeRule.rules.push(rule);
     }
@@ -73,7 +73,7 @@ export class ObjectValidator {
     public field (fieldName: string) {
         const newRule: ValidationRules = {
             field: fieldName,
-            hasFailed: false,
+            isValid: true,
             rules: []
         }
 
