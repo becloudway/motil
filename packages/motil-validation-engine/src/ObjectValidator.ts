@@ -24,6 +24,10 @@ export interface ValidationRules {
 export class ObjectValidator {
     private _target: any;
     private _rules: ValidationRules[] = [];
+    private _result: ObjectValidationResult = {
+        isOk: true,
+        rules: []
+    }
 
     private _activeRule: ValidationRules;
 
@@ -32,25 +36,32 @@ export class ObjectValidator {
     }
 
     public numberMax (maxAmount: number) {
-        let maxRule: Rule = {
+        this.custom(maxAmount, "NUMBER_MAX", "should be less than", (constraint, fieldValue) => constraint > fieldValue);
+
+        return this;
+    }
+
+    public custom (constraint: any, type: string, message: string, checkFunction: (constraint: any, fieldValue: any) => boolean) {
+        const rule: Rule = {
             hasFailed: false,
-            type: "NUMBER_MAX",
+            type: type,
             params: {
-                constraint: maxAmount,
+                constraint: constraint,
                 is: undefined,
-                message: "expected to be less than"
+                message: message
             }
         }
 
-        let field = this._target[this._activeRule.field];
+        const fieldValue = this._target[this._activeRule.field];
+        rule.params.is = fieldValue;
 
-        maxRule.params.is = field;
-        maxRule.hasFailed = field > maxAmount;
-        this._activeRule.hasFailed = this._activeRule.hasFailed || maxRule.hasFailed;
+        const hasFailed = !checkFunction(constraint, fieldValue);
+        
+        rule.hasFailed = hasFailed;
+        this._activeRule.hasFailed = this._activeRule.hasFailed || hasFailed;
+        this._result.isOk = (this._result.isOk && hasFailed) ? false : this._result.isOk;
 
-        this._activeRule.rules.push(maxRule);
-
-        return this;
+        this._activeRule.rules.push(rule);
     }
 
     public and (fieldName: string) {
@@ -73,18 +84,7 @@ export class ObjectValidator {
     }
 
     public validate () {
-        const validationResult: ObjectValidationResult = {
-            isOk: true,
-            rules: this._rules
-        }
-
-        let index = 0;
-        while (validationResult.isOk && index < this._rules.length) {
-            let rule = this._rules[index++];
-            
-            validationResult.isOk = !rule.hasFailed;
-        }
-
-        return validationResult;
+        this._result.rules = this._rules;
+        return this._result;
     }
 }
