@@ -62,6 +62,8 @@ export class ObjectValidator {
         this._result.isValid = this._result.isValid && isValid;
 
         this._activeRule.rules.push(rule);
+
+        return this;
     }
 
     public and (fieldName: string) {
