@@ -36,9 +36,7 @@ export class ObjectValidator {
     }
 
     public numberMax (maxAmount: number) {
-        this.custom(maxAmount, "NUMBER_MAX", "should be less than", (constraint, fieldValue) => constraint > fieldValue);
-
-        return this;
+        return this.custom(maxAmount, "NUMBER_MAX", "should be less than", (constraint, fieldValue) => constraint > fieldValue);
     }
 
     public custom (constraint: any, type: string, message: string, checkFunction: (constraint: any, fieldValue: any) => boolean) {
