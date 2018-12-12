@@ -1,27 +1,12 @@
 {
+    "extends": "../../tsconfig.json",
     "compilerOptions": {
-        "target": "es6",
-        "module": "commonjs",
-        "declaration": false,
-        "outDir": "./dist",
-        "rootDir": "./src",
-        "strict": true,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "moduleResolution": "node",
-        "typeRoots": [
-            "node_modules/@types",
-            "typings/"
-        ],
-        "types": ["node"],
-        "lib": [
-            "dom",
-            "es6",
-            "scripthost",
-            "es2015.iterable"
-        ]
+      "outDir": "./dist",
+      "types": [
+          "node"
+      ]
     },
-    "exclude": [
-        "**/__tests__"
+    "include": [
+      "./src"
     ]
 }

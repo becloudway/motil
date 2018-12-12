@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "declaration": true,
+        "sourceMap": false,
+        "noImplicitAny": false,
+        "module": "commonjs",
+        "target": "es5",
+        "jsx": "react",
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "typeRoots": [
+            "./node_modules/@types/**",
+            "./typings/*"
+        ],
+        "baseUrl": "./",
+		"paths" : {
+			"*" : ["typings/*"]
+		},
+        "lib": [
+            "dom",
+            "es6",
+            "es2015.iterable"
+        ]
+    },
+    "include": [
+        "**/src/**/*"
+    ],
+    "exclude": [
+        "**/__tests__/"
+    ]
+}
