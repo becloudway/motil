@@ -7,8 +7,11 @@
     "test": "jest --config jest.json",
     "build": "npm t && tsc"
   },
-  "author": "Mitch Mommers",
-  "license": "ISC",
+  "contributors": [
+    "Mitch Mommers <mitch.mommers@cloudway.be>",
+    "Stijn De Pestel <stijn.depestel@cloudway.be>"
+  ],
+  "license": "MIT",
   "devDependencies": {
     "@types/jest": "^23.3.10",
     "@types/node": "^10.9.4",

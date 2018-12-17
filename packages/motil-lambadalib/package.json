@@ -9,8 +9,11 @@
     "build": "npm t && tsc",
     "build:watch": "tsc -w"
   },
-  "author": "Mitch Mommers",
-  "license": "ISC",
+  "contributors": [
+    "Mitch Mommers <mitch.mommers@cloudway.be>",
+    "Stijn De Pestel <stijn.depestel@cloudway.be>"
+  ],
+  "license": "MIT",
   "dependencies": {
     "@types/node": "^10.5.7",
     "aws-lambda": "^0.1.2",

@@ -1,15 +1,18 @@
 {
-  "name": "motil-core",
+  "name": "motil-components",
   "version": "2.1.1",
-  "description": "Component for AdminLTE and utility classes",
+  "description": "Components for AdminLTE (bootstrap template) and utility classes",
   "main": "./dist/index.js",
   "scripts": {
     "test": "jest --config jest.json",
     "build": "npm t && tsc",
     "build:watch": "tsc --watch"
   },
-  "author": "Mitch Mommers",
-  "license": "ISC",
+  "contributors": [
+    "Mitch Mommers <mitch.mommers@cloudway.be>",
+    "Stijn De Pestel <stijn.depestel@cloudway.be>"
+  ],
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.18.0",
     "jquery": "^3.3.1",

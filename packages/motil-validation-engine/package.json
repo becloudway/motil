@@ -8,8 +8,11 @@
     "build": "npm t && tsc",
     "build:watch": "tsc --watch"
   },
-  "author": "Mitch Mommers",
-  "license": "ISC",
+  "contributors": [
+    "Mitch Mommers <mitch.mommers@cloudway.be>",
+    "Stijn De Pestel <stijn.depestel@cloudway.be>"
+  ],
+  "license": "MIT",
   "devDependencies": {
     "@types/jest": "^23.3.10",
     "@types/lodash": "^4.14.118",
