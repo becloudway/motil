@@ -2,8 +2,6 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "lint": "eslint ./packages/**/src/**/*.ts --quiet",
-    "lint:fix": "eslint ./packages/**/src/**/*.ts --quiet --fix",
     "build": "npx lerna run build",
     "bootstrap": "npx lerna bootstrap",
     "deploy": "./deploy.sh"
