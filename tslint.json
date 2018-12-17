@@ -1,0 +1,9 @@
+{
+    "extends": "./node_modules/tslint-config-airbnb/tslint",
+    "rules": {
+        "quotemark": [true, "double"],
+        "indent": [true, "spaces"],
+        "ter-indent": [true, 4],
+        "max-line-length": [false]
+    }
+}
