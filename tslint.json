@@ -4,6 +4,7 @@
         "quotemark": [true, "double"],
         "indent": [true, "spaces"],
         "ter-indent": [true, 4],
-        "max-line-length": [false]
+        "max-line-length": [false],
+        "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"]
     }
 }

@@ -17,7 +17,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "COUNT=`git diff --cached --name-only | grep -E \".ts[x]?$\" | wc -L`; if [ $COUNT -ne 0 ]; then npm run lint:fix -- `git diff --cached --name-only | grep -E \".ts[x]?$\" | tr '\n' ' '`; fi;"
+      "pre-commit": "./scripts/pre-commit.sh"
     }
   }
 }
