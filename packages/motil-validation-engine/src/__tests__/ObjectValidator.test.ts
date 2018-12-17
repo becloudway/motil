@@ -1,103 +1,103 @@
-import { ValidationEngine, ObjectValidationResult, Required } from "..";
+import {ValidationEngine} from "..";
 
 import "ts-jest";
 
-describe('ObjectValidator', () => {
+describe("ObjectValidator", () => {
 
-    describe('#numberValidation', () => {
+    describe("#numberValidation", () => {
 
-        it('should validate a number is less than some number', () => {
+        it("should validate a number is less than some number", () => {
             const toValidate = {
                 number: 2,
             };
             const validationResult = new ValidationEngine(toValidate)
-                .field('number').numMax(3).validate();
+                .field("number").numMax(3).validate();
 
             expect(validationResult.isValid).toBeTruthy();
         });
 
-        it('should validate a number is not less than some number', () => {
+        it("should validate a number is not less than some number", () => {
             const toValidate = {
                 number: 4,
             };
             const validationResult = new ValidationEngine(toValidate)
-                .field('number').numMax(3).validate();
+                .field("number").numMax(3).validate();
 
             expect(validationResult.isValid).toBeFalsy();
         });
 
-        it('should validate to true if the number is equal to the maximum allowed value', () => {
+        it("should validate to true if the number is equal to the maximum allowed value", () => {
             const toValidate = {
                 number: 3,
             };
             const validationResult = new ValidationEngine(toValidate)
-                .field('number').numEqualMax(3).validate();
+                .field("number").numEqualMax(3).validate();
 
             expect(validationResult.isValid).toBeTruthy();
         });
 
-        it('should validate negative numbers if no lower bounds has been configured', () => {
+        it("should validate negative numbers if no lower bounds has been configured", () => {
             const toValidate = {
                 number: -1,
             };
             const validationResult = new ValidationEngine(toValidate)
-                .field('number').numMax(3).validate();
+                .field("number").numMax(3).validate();
 
             expect(validationResult.isValid).toBeTruthy();
         });
 
-        it('should not validate if the number is not a number while using a numeric validator', () => {
+        it("should not validate if the number is not a number while using a numeric validator", () => {
             const toValidate = {
-                number: 'test',
+                number: "test",
             };
             const validationResult = new ValidationEngine(toValidate)
-                .field('number').numMax(3).validate();
+                .field("number").numMax(3).validate();
 
             expect(validationResult.isValid).toBeFalsy();
         });
 
-        it('should not validate if the number is not a number', () => {
+        it("should not validate if the number is not a number", () => {
             const toValidate = {
-                number: 'test',
+                number: "test",
             };
             const validationResult = new ValidationEngine(toValidate)
-                .field('number').isNum().validate();
+                .field("number").isNum().validate();
 
             expect(validationResult.isValid).toBeFalsy();
         });
 
-        it('should validate if the number is undefined while it is not required', () => {
+        it("should validate if the number is undefined while it is not required", () => {
             const toValidate = {
                 number: undefined,
             };
             const validationResult = new ValidationEngine(toValidate)
-                .field('number').setOptional().numMax(3).validate();
+                .field("number").setOptional().numMax(3).validate();
 
             expect(validationResult.isValid).toBeTruthy();
         });
 
-        it('should validate the number while it is not required', () => {
+        it("should validate the number while it is not required", () => {
             const toValidate = {
                 number: 5,
             };
             const validationResult = new ValidationEngine(toValidate)
-                .field('number').setOptional().numMax(3).validate();
+                .field("number").setOptional().numMax(3).validate();
 
             expect(validationResult.isValid).toBeFalsy();
         });
 
-        it('should validate if the number is missing while it is not required', () => {
+        it("should validate if the number is missing while it is not required", () => {
             const toValidate = {};
             const validationResult = new ValidationEngine(toValidate)
-                .field('number').setOptional().numMax(3).validate();
+                .field("number").setOptional().numMax(3).validate();
 
             expect(validationResult.isValid).toBeTruthy();
         });
 
-        it('should validate if the number is missing while it is required', () => {
+        it("should validate if the number is missing while it is required", () => {
             const toValidate = {};
             const validationResult = new ValidationEngine(toValidate)
-                .field('number').numMax(3).validate();
+                .field("number").numMax(3).validate();
 
             expect(validationResult.isValid).toBeFalsy();
         });
@@ -105,15 +105,24 @@ describe('ObjectValidator', () => {
     });
 
     describe("#stringValidation", () => {
-        it('should validate if the length of a string is less than the maximum length while it is not required', () => {
+        it("should validate if the length of a string is less than the maximum length while it is not required", () => {
             const toValidate = {
-                string: "test"
+                string: "test",
             };
             const validationResult = new ValidationEngine(toValidate)
-                .field('string').strMax(5).validate();
+                .field("string").strMax(5).validate();
 
             expect(validationResult.isValid).toBeTruthy();
         });
-    })
+    });
 
+    // describe("#combination", () => {
+    //     it("should validate if the string is longer than 5 and the number is higher than 10", () => {
+    //         const toValidate = {
+    //             string: "testtest",
+    //             number: 15,
+    //         };
+    //         new ValidationEngine(toValidate).field("string").strMin(5).or().field("number")
+    //     });
+    // });
 });

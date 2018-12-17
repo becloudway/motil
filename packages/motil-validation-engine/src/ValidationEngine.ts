@@ -19,7 +19,8 @@ export class ValidationEngine extends ObjectValidator implements INumericValidat
     isNum: () => this;
 
     // StringValidator
-    strMax: (maxAmount: number) => ObjectValidator;
+    strMax: (maxAmount: number) => this;
+    strMin: (minAmount: number) => this;
 }
 
 applyMixins(ValidationEngine, [NumericValidator, StringValidator]);
