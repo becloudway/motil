@@ -34,7 +34,7 @@ export abstract class Form extends React.Component<FormProps, FormState> {
         this.state = {
             error: {
 
-          },
+            },
             ...state,
         };
 

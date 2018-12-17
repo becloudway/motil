@@ -5,6 +5,7 @@
         "indent": [true, "spaces"],
         "ter-indent": [true, 4],
         "max-line-length": [false],
-        "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"]
+        "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"],
+        "no-else-after-return": [true, "allow-else-if"]
     }
 }

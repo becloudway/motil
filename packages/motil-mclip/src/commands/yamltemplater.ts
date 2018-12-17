@@ -1,7 +1,4 @@
 import { Command } from "../command";
-
-import chalk from "chalk";
-
 import * as fs from "fs";
 import chalk from "chalk";
 
@@ -19,8 +16,8 @@ export default class YalmTemplater extends Command {
         const command = args.pop();
         const action = args.shift();
 
-        console.log(Chalk.red("Working dir: ") + DIR);
-        console.log(Chalk.green("-- " + Chalk.bold(action) + " --"));
+        console.log(chalk.red("Working dir: ") + DIR);
+        console.log(chalk.green(`-- ${chalk.bold(action)} --`));
 
         switch (action) {
         case "pack":
@@ -39,14 +36,14 @@ export default class YalmTemplater extends Command {
         const out = obj.outputFile || "template.build.yaml";
         const dir = obj.inputDir || "test";
 
-        const absoluteTemplatePath = (!this.checkPathStart(template)) ? DIR + "/" + template : template;
-        const absoluteBuildPath = (!this.checkPathStart(out)) ? DIR + "/" + out : out;
-        const absoluteDirPath = (!this.checkPathStart(dir)) ? DIR + "/" + dir : dir;
+        const absoluteTemplatePath = (!this.checkPathStart(template)) ? `${DIR}/${template}` : template;
+        const absoluteBuildPath = (!this.checkPathStart(out)) ? `${DIR}/${out}` : out;
+        const absoluteDirPath = (!this.checkPathStart(dir)) ? `${DIR}/${dir}` : dir;
 
         const dirs = fs.readdirSync(absoluteDirPath);
 
         if (!fs.existsSync(absoluteTemplatePath)) {
-            console.log(Chalk.red("No template file!, " + absoluteTemplatePath));
+            console.log(chalk.red(`No template file!, ${absoluteTemplatePath}`));
             return;
         }
 
@@ -54,39 +51,39 @@ export default class YalmTemplater extends Command {
         let snips = "";
 
         for (const dir of dirs) {
-            const checking = absoluteDirPath + "/" + dir;
+            const checking = `${absoluteDirPath}/${dir}`;
             const file = "/templ-snip.yaml";
             const absolute = checking + file;
 
             if (!fs.existsSync(absolute)) {
-              console.log(Chalk.magenta("Checked: ") + dir + Chalk.red(" \u{274C}"));
-              continue;
-          }
+                console.log(chalk.magenta("Checked: ") + dir + chalk.red(" \u{274C}"));
+                continue;
+            }
 
-            console.log(Chalk.magenta("Checked: ") + dir + Chalk.greenBright(" \u{2714}"));
+            console.log(chalk.magenta("Checked: ") + dir + chalk.greenBright(" \u{2714}"));
 
             const content = fs.readFileSync(absolute, "UTF-8");
 
             if (!await YamlUtil.isValidYaml(content)) {
-              console.log(Chalk.magenta("Valid YAML: ") + dir + Chalk.red(" \u{274C}"));
-          } else {
-              console.log(Chalk.magenta("Valid YAML: ") + dir + Chalk.greenBright(" \u{2714}"));
-          }
+                console.log(chalk.magenta("Valid YAML: ") + dir + chalk.red(" \u{274C}"));
+            } else {
+                console.log(chalk.magenta("Valid YAML: ") + dir + chalk.greenBright(" \u{2714}"));
+            }
 
             snips += os.EOL + content;
 
-            console.log(Chalk.magenta("Loading: ") + dir + chalk.greenBright(" done"));
+            console.log(chalk.magenta("Loading: ") + dir + chalk.greenBright(" done"));
         }
 
         const newTemplate = templateContent.replace("resource: '<replace>'", snips);
 
         if (!await YamlUtil.isValidYaml(newTemplate)) {
-            console.log(Chalk.red("Not a valid YAML file!"));
+            console.log(chalk.red("Not a valid YAML file!"));
         } else {
-            console.log(Chalk.green("Valid YAML file!"));
+            console.log(chalk.green("Valid YAML file!"));
         }
 
-        console.log(Chalk.green("-- " + Chalk.bold("Done: ")) + "File written to: " + absoluteBuildPath + chalk.green(" --"));
+        console.log(`${chalk.green(`-- ${chalk.bold("Done: ")}`)}File written to: ${absoluteBuildPath}${chalk.green(" --")}`);
         fs.writeFileSync(absoluteBuildPath, newTemplate);
 
     }

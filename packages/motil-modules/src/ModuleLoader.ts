@@ -1,8 +1,6 @@
-import { Module } from "./module/Module";
-import { ComponentModule } from "./module/ComponentModule";
-import { ServiceModule } from "./module/ServiceModule";
+import { ComponentModule, ServiceModule } from "./module";
+import * as winston from "winston";
 
-import Logger from "./util/Logger";
 const logger = winston.loggers.get("default");
 
 // TODO: Add support for ServiceModules
@@ -10,7 +8,7 @@ const logger = winston.loggers.get("default");
 
 export class ModuleLoader {
     private _enabled: boolean = false;
-    private _modules: Array<ComponentModule | ServiceModule> = [];
+    private _modules: (ComponentModule|ServiceModule)[] = [];
     private _enabledModules: any = [];
 
     public register (module: any): void {
@@ -24,7 +22,7 @@ export class ModuleLoader {
 
         for (const module of this._enabledModules) {
 
-            logger.info("Loading <" + module.name + ">");
+            logger.info(`Loading <${module.name}>`);
 
             const m = new module(this);
 
@@ -33,7 +31,7 @@ export class ModuleLoader {
         }
     }
 
-    public getNavigation (): Array<any> {
+    public getNavigation (): any[] {
         const navigation = [];
 
         if (!this._enabled) {
@@ -42,14 +40,14 @@ export class ModuleLoader {
 
         for (const m of this._modules) {
             if ((m instanceof ComponentModule)) {
-              navigation.push(...m.setNavigation());
-          }
+                navigation.push(...m.setNavigation());
+            }
         }
 
         return navigation;
     }
 
-    public getRoutes (): Array<any> {
+    public getRoutes (): any[] {
         const routes = [];
 
         if (!this._enabled) {
@@ -58,8 +56,8 @@ export class ModuleLoader {
 
         for (const m of this._modules) {
             if ((m instanceof ComponentModule)) {
-              routes.push(...m.setRoutes());
-          }
+                routes.push(...m.setRoutes());
+            }
         }
 
         return routes;
@@ -74,8 +72,8 @@ export class ModuleLoader {
 
         for (const m of this._modules) {
             if ((m instanceof ComponentModule)) {
-              stores = { ...stores, ...m.setStores() };
-          }
+                stores = { ...stores, ...m.setStores() };
+            }
         }
 
         return stores;

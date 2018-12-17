@@ -30,10 +30,10 @@ export abstract class AnnotatedEntryHandler extends EntryHandler {
 
         for (const decorator of decorators) {
             if (decorator.decorator === "BASEURL") {
-              this.baseUrl = decorator.url;
-          } else if (decorator.decorator === "CORS") {
-            this.cors = decorator.cors;
-        }
+                this.baseUrl = decorator.url;
+            } else if (decorator.decorator === "CORS") {
+                this.cors = decorator.cors;
+            }
         }
     }
 
@@ -50,9 +50,9 @@ export abstract class AnnotatedEntryHandler extends EntryHandler {
         if ((decorator.decorator === "CORS" || this.cors)) {
 
             return (error: any, response: any) => {
-              response.headers = { ...response.header, ...(decorator.cors || this.cors) };
-              this.callback(error, response);
-          };
+                response.headers = { ...response.header, ...(decorator.cors || this.cors) };
+                this.callback(error, response);
+            };
         }
     }
 
@@ -91,25 +91,24 @@ export abstract class AnnotatedEntryHandler extends EntryHandler {
         for (const v of names) {
             const decorators = DecoratorUtil.getDecorators(this, v);
             if (decorators.length <= 0) {
-              continue;
-          }
+                continue;
+            }
 
             for (const d of decorators) {
-              if (!execute) execute = this.setExecutionMethod(d);
-              if (!newCallback) newCallback = this.setCors(d);
+                if (!execute) execute = this.setExecutionMethod(d);
+                if (!newCallback) newCallback = this.setCors(d);
 
-              if (pathValid) pathValid = this.validatePathParameters(d);
-              if (bodyValid) bodyValid = this.validateBody(d);
-          }
+                if (pathValid) pathValid = this.validatePathParameters(d);
+                if (bodyValid) bodyValid = this.validateBody(d);
+            }
 
             if (execute && pathValid && bodyValid) {
-              execute(this.event, this.context, this.wrapCallBack(newCallback || callback));
-              return;
-          }
-            else if (!pathValid || !bodyValid) {
-              callback(null, { statusCode: 404, body :  JSON.stringify({ message: "Invalid input" }) });
-              return;
-          }
+                execute(this.event, this.context, this.wrapCallBack(newCallback || callback));
+                return;
+            } else if (!pathValid || !bodyValid) {
+                callback(null, { statusCode: 404, body :  JSON.stringify({ message: "Invalid input" }) });
+                return;
+            }
         }
     }
 }

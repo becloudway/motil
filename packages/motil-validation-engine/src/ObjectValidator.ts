@@ -52,13 +52,13 @@ export class ObjectValidator {
         }
 
         const rule: Rule = {
-            isValid: true,
             type,
+            isValid: true,
             params: {
-              constraint,
-              is: undefined,
-              message,
-          },
+                message,
+                constraint,
+                is: undefined,
+            },
         };
 
         rule.params.is = this._activeRule.value;
@@ -81,10 +81,10 @@ export class ObjectValidator {
             isValid: true,
             type: "FIELD_REQUIREMENT",
             params: {
-              constraint: Required.OPTIONAL,
-              is: this._activeRule.field,
-              message: "field is marked as ",
-          },
+                constraint: Required.OPTIONAL,
+                is: this._activeRule.field,
+                message: "field is marked as ",
+            },
         };
 
         if (this.isEmpty(this._activeRule.value)) {
@@ -105,10 +105,10 @@ export class ObjectValidator {
             isValid: true,
             type: "FIELD_REQUIREMENT",
             params: {
-              constraint: Required.REQUIRED,
-              is: this._activeRule.field,
-              message: "field is marked as ",
-          },
+                constraint: Required.REQUIRED,
+                is: this._activeRule.field,
+                message: "field is marked as ",
+            },
         };
 
         if (this.isEmpty(this._activeRule.value)) {

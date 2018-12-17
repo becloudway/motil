@@ -6,7 +6,7 @@ import { QueryResponse } from "../interfaces";
 import { Util } from "../util";
 
 export abstract class RouteEntryHandler extends EntryHandler {
-    private _routes: Array<Route> = [];
+    private _routes: Route[] = [];
     private _configuration: any;
 
     constructor (event: any, context: Context, callback: Callback) {
@@ -31,9 +31,9 @@ export abstract class RouteEntryHandler extends EntryHandler {
         for (const route of this._routes) {
             if ((route.path === "*" || path === this.baseUrl + route.path)
             && (route.httpMethod === "*" || method === route.httpMethod)) {
-              await this.runRoute<T>(route, configuration);
-              break;
-          }
+                await this.runRoute<T>(route, configuration);
+                break;
+            }
         }
     }
 

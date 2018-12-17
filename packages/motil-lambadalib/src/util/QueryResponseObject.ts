@@ -24,10 +24,10 @@ export class QueryResponseObject {
 
         if (typeof result === "string") {
             try {
-              result = JSON.parse(value);
-          } catch (ex) {
-              result = { message: value };
-          }
+                result = JSON.parse(value);
+            } catch (ex) {
+                result = { message: value };
+            }
         }
 
         this._body = result;

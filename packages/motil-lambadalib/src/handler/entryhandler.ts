@@ -1,7 +1,7 @@
 import { Context, Callback } from "aws-lambda";
+import { ValidationEngine } from "motil-validation-engine";
 import "reflect-metadata";
 import { HttpMethod } from "../enum";
-import { ValidationEngine } from "motil-validation-engine";
 
 export abstract class EntryHandler {
     private _event: any;
@@ -49,18 +49,17 @@ export abstract class EntryHandler {
             let body = response.body;
 
             if (typeof body === "string") {
-              body = body.trim();
-              try {
-                body = JSON.stringify(JSON.parse(body));
+                body = body.trim();
+                try {
+                    body = JSON.stringify(JSON.parse(body));
+                } catch (ex) {
+                    body = JSON.stringify({
+                        message: body,
+                    });
+                }
+            } else {
+                body = JSON.stringify(body);
             }
-              catch (ex) {
-                body = JSON.stringify({
-                  message: body,
-              });
-            }
-          } else {
-              body = JSON.stringify(body);
-          }
 
             response.body = body;
             callback(error, response);

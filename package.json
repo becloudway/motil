@@ -2,8 +2,8 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "lint": "tslint --project tsconfig.json -c tslint.json",
-    "lint:fix": "tslint --project tsconfig.json -c tslint.json --fix",
+    "lint": "tslint --project tsconfig.json -c tslint.json --format stylish",
+    "lint:fix": "npm run lint -- --fix",
     "build": "npx lerna run build",
     "bootstrap": "npx lerna bootstrap",
     "deploy": "./deploy.sh"
