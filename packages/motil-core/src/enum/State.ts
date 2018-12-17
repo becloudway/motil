@@ -1,5 +1,5 @@
 export enum ServerState {
-    PENDING = "PENDING", 
+    PENDING = "PENDING",
     WAITING = "WAITING",
     SUCCESFULL = "SUCCESFULL",
     FAILURE = "FAILURE",
@@ -9,11 +9,11 @@ export enum ServerState {
     ERROR = "ERROR",
     ROLLING = "ROLLING",
     PROVISIONING = "PROVISIONING",
-    PROVISIONED = "PROVISIONED"
+    PROVISIONED = "PROVISIONED",
 }
 
 export enum ClientState {
-    PENDING = "PENDING", 
+    PENDING = "PENDING",
     WAITING = "WAITING",
     SUCCESFULL = "SUCCESFULL",
     FAILURE = "FAILURE",
@@ -28,5 +28,5 @@ export enum ClientState {
     LOADING = "LOADING",
     COMPLETED_WITH_ERRORS = "COMPLETED_WITH_ERRORS",
 
-    TIMEDOUT = "TIMEDOUT"
+    TIMEDOUT = "TIMEDOUT",
 }

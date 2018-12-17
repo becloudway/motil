@@ -7,6 +7,6 @@ export  class Spinner extends React.Component<any> {
     }
 
     render(): React.ReactElement<any> {
-        return <i className="fas fa-spinner fa-spin loading"></i>
+        return <i className="fas fa-spinner fa-spin loading"></i>;
     }
 }

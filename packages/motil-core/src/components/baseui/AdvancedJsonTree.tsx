@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import ReactJson from 'react-json-view';
+import reactJsonView from "react-json-view";
 
 export class AdvancedJsonTree extends React.Component {
     public props: any;

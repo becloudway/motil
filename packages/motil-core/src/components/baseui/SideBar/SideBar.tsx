@@ -1,17 +1,17 @@
 import * as React from "react";
 
 export interface ISideBarProps {
-  children?: any;
+    children?: any;
 }
 
 export  class SideBar extends React.Component<ISideBarProps> {
-  props: ISideBarProps;
-  constructor(props: ISideBarProps) {
-    super(props);
-  }
+    props: ISideBarProps;
+    constructor(props: ISideBarProps) {
+        super(props);
+    }
 
-  render(): React.ReactElement<any> {
-    return (
+    render(): React.ReactElement<any> {
+        return (
       <aside className="main-sidebar">
         <section className="sidebar">
           <ul className="sidebar-menu" data-widget="tree">
@@ -19,6 +19,6 @@ export  class SideBar extends React.Component<ISideBarProps> {
           </ul>
         </section>
       </aside>
-    );
-  }
+        );
+    }
 }

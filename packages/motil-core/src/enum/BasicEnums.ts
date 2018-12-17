@@ -1,3 +1,3 @@
 export enum State {
-    LOADING, LOADED, PENDING
+    LOADING, LOADED, PENDING,
 }

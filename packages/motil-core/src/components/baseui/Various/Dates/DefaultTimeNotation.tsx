@@ -14,8 +14,8 @@ export class TimeNotation extends React.Component<TimeNotationProps> {
     }
 
     render () {
-        let date = this.props.date;
-        let timestamp = toLocalDate(date);
+        const date = this.props.date;
+        const timestamp = toLocalDate(date);
         return (
             <div>{getDateStandardNotation(timestamp) + " - " + getTime(timestamp)}</div>
         );

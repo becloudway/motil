@@ -6,7 +6,7 @@ export abstract class Module {
     constructor (moduleLoader: ModuleLoader) {
         this._moduleLoader = moduleLoader;
     }
-    
+
     abstract onLoad ();
     abstract onUnload ();
 

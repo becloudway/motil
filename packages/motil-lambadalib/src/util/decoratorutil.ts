@@ -12,4 +12,3 @@ export class DecoratorUtil {
             .reduce((values, key) =>  values.concat(Reflect.getMetadata(key, target)), []);
     }
 }
-

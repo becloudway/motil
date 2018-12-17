@@ -2,20 +2,20 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 
 export interface ISidebarSubmenu {
-  text: string;
-  icon?: string;
-  children?: any;
-  transform?: string;
+    text: string;
+    icon?: string;
+    children?: any;
+    transform?: string;
 }
 
 export  class SidebarSubmenu extends React.Component<ISidebarSubmenu> {
-  props: ISidebarSubmenu;
-  constructor(props: ISidebarSubmenu) {
-    super(props);
-  }
+    props: ISidebarSubmenu;
+    constructor(props: ISidebarSubmenu) {
+        super(props);
+    }
 
-  render(): React.ReactElement<any> {
-    return (
+    render(): React.ReactElement<any> {
+        return (
       <li className="treeview">
         <a href="#">
           <i
@@ -31,6 +31,6 @@ export  class SidebarSubmenu extends React.Component<ISidebarSubmenu> {
         </a>
         <ul className="treeview-menu">{this.props.children}</ul>
       </li>
-    );
-  }
+        );
+    }
 }

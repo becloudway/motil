@@ -1,4 +1,4 @@
-import TimeAgo from "react-timeago";
+import reactTimeago from "react-timeago";
 import en from "react-timeago/lib/language-strings/en";
 import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
 
@@ -22,7 +22,7 @@ const months: any = {
             "september",
             "oktober",
             "november",
-            "december"
+            "december",
         ],
         english: [
             "January",
@@ -36,8 +36,8 @@ const months: any = {
             "September",
             "October",
             "November",
-            "December"
-        ]
+            "December",
+        ],
     },
     short: {
         dutch: [
@@ -52,7 +52,7 @@ const months: any = {
             "sep",
             "okt",
             "nov",
-            "dec"
+            "dec",
         ],
         enlgish: [
             "Jan",
@@ -66,21 +66,21 @@ const months: any = {
             "Sep",
             "Okt",
             "Nov",
-            "Dec"
-        ]
-    }
+            "Dec",
+        ],
+    },
 };
 
 export function getMonthFull(
     number: number,
-    language: string = "english"
+    language: string = "english",
 ): string {
     return months.long[language][number];
 }
 
 export function getMonthShort(
     number: number,
-    language: string = "english"
+    language: string = "english",
 ): string {
     return months.short[language][number];
 }
@@ -91,23 +91,23 @@ export function str_pad(n: number): string {
 
 export function getDate(date: Date): string {
     return `${str_pad(date.getDate())} ${getMonthShort(
-        date.getMonth()
+        date.getMonth(),
     )} ${date.getFullYear()}`;
 }
 
 export function getDateStandardNotation(date: Date): string {
     return `${date.getFullYear()}-${str_pad(date.getMonth())}-${str_pad(
-        date.getDate()
+        date.getDate(),
     )}`;
 }
 
 export function getTime(date: Date): string {
     return `${str_pad(date.getHours())}:${str_pad(date.getMinutes())}:${str_pad(
-        date.getSeconds()
+        date.getSeconds(),
     )}`;
 }
 
-export function getTimeStamp (date: Date) : string {
+export function getTimeStamp(date: Date) : string {
     return getDateStandardNotation(date) + " - " + getTime(date);
 }
 
@@ -120,4 +120,3 @@ export function toLocalDate(date: Date | string): Date {
         .local()
         .toDate();
 }
-

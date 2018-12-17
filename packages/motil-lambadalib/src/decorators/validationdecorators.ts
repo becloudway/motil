@@ -5,8 +5,8 @@ export function bodyValidation(rules: any) {
 
         const originalMethod = descriptor.value;
 
-        Reflect.defineMetadata("lambdalib:anotations:bodyvalidation", {decorator: "BODY-VALIDATION", rules: rules , originalMethod: originalMethod}, target, key);
-    }
+        Reflect.defineMetadata("lambdalib:anotations:bodyvalidation", { decorator: "BODY-VALIDATION", rules , originalMethod }, target, key);
+    };
 }
 
 export function pathValidation(rules: any) {
@@ -14,6 +14,6 @@ export function pathValidation(rules: any) {
 
         const originalMethod = descriptor.value;
 
-        Reflect.defineMetadata("lambdalib:anotations:pathvalidation", {decorator: "PATH-VALIDATION", rules: rules , originalMethod: originalMethod}, target, key);
-    }
+        Reflect.defineMetadata("lambdalib:anotations:pathvalidation", { decorator: "PATH-VALIDATION", rules , originalMethod }, target, key);
+    };
 }

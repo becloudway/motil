@@ -11,13 +11,13 @@ export interface FormValidationRules {
 
 export interface FormFunctions {
     [functionName: string]: (value: any, param: any) => boolean;
-} 
+}
 
 export interface ValidationResult {
-    isOk: boolean,
+    isOk: boolean;
     errors: {
         [x: string]: boolean;
-    }
+    };
 }
 
 export class ValidationEngine {
@@ -31,14 +31,14 @@ export class ValidationEngine {
         this.target = target;
 
         this.functions = {
-            required: ValidationEngine.required, 
-            max: ValidationEngine.max, 
+            required: ValidationEngine.required,
+            max: ValidationEngine.max,
             min: ValidationEngine.min,
             isNumber: ValidationEngine.isNumber,
             isRegex: ValidationEngine.isRegex,
             numMin: ValidationEngine.numMin,
             numMax: ValidationEngine.numMax,
-            ...functions
+            ...functions,
         };
     }
 
@@ -64,7 +64,7 @@ export class ValidationEngine {
         if (typeof value !== "undefined" && value.trim().length <= p) {
             return true;
         }
-        
+
         return false;
     }
 
@@ -97,7 +97,7 @@ export class ValidationEngine {
         const regex = new RegExp(p);
         if (typeof value !== "undefined" && regex.test(value)) {
             return true;
-        } 
+        }
 
         return false;
     }
@@ -108,38 +108,38 @@ export class ValidationEngine {
 
         const validationResult: ValidationResult = {
             isOk: false,
-            errors: {}
+            errors: {},
         };
 
         const keys: Array<string> = Object.keys(rules);
         let hasError: boolean = false;
-        
+
         const error: {[x: string]: boolean} = {};
-        
+
         let index = 0;
         while (!hasError && index < keys.length) {
-            let key = keys[index++];
+            const key = keys[index++];
 
             const keyValue = rules[key];
-            const rulesSplit = keyValue.split ("|");
+            const rulesSplit = keyValue.split("|");
 
             for (const rule of rulesSplit) {
-                const params = rule.split(":");
+              const params = rule.split(":");
 
-                const validationFunction = params[0];
-                
-                let functionParameters = null;
-                if (params.length > 1) {
-                    functionParameters = params[1];
-                } 
+              const validationFunction = params[0];
 
-                const result = this.functions[validationFunction](target[key], functionParameters);
-
-                if (!result) {
-                    error[key] = true;
-                    hasError = true;
-                }
+              let functionParameters = null;
+              if (params.length > 1) {
+                functionParameters = params[1];
             }
+
+              const result = this.functions[validationFunction](target[key], functionParameters);
+
+              if (!result) {
+                error[key] = true;
+                hasError = true;
+            }
+          }
         }
 
         validationResult.isOk = !hasError;

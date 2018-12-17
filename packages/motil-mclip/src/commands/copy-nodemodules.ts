@@ -1,6 +1,6 @@
 import { Command } from "../command";
 
-import Chalk from "chalk";
+import chalk from "chalk";
 
 import * as copynode from "copy-node-modules";
 
@@ -8,7 +8,7 @@ const DIR = process.cwd();
 
 export default class CopyNode extends Command {
     public action(...args: string[]): void {
-        let command = args.pop();
+        const command = args.pop();
 
         console.log(Chalk.red("Working dir: ") + DIR);
         console.log(Chalk.green("-- COPY NODE MODULES --"));
@@ -21,35 +21,35 @@ export default class CopyNode extends Command {
     }
 
     private async pack(obj: any): Promise<void> {
-        let input = obj.input || "/";
-        let out = obj.output || input + "dist";
+        const input = obj.input || "/";
+        const out = obj.output || input + "dist";
 
-        let outPath = !this.checkPathStart(out) ? DIR + "/" + out : out;
-        let inPath = !this.checkPathStart(input) ? DIR + "/" + input : input;
+        const outPath = !this.checkPathStart(out) ? DIR + "/" + out : out;
+        const inPath = !this.checkPathStart(input) ? DIR + "/" + input : input;
 
-        let filter = (v: string) => {
-            let index = v.indexOf("node_modules");
-            let secondIndex = v.indexOf("node_modules", index + 1);
-            
+        const filter = (v: string) => {
+            const index = v.indexOf("node_modules");
+            const secondIndex = v.indexOf("node_modules", index + 1);
+
             return (secondIndex == -1);
-        }
+        };
 
-        copynode(input, out, { devDependencies: false, filter: filter }, function(
+        copynode(input, out, { devDependencies: false, filter }, function (
             err: any,
-            results: any
+            results: any,
         ) {
-            if (err) { 
-                console.error(err);
-                return;
-            }
-            for (var i in results) {
-                console.log(
+            if (err) {
+              console.error(err);
+              return;
+          }
+            for (const i in results) {
+              console.log(
                     "package name: " +
                         results[i].name +
                         ", version: " +
-                        results[i].version
+                        results[i].version,
                 );
-            }
+          }
         });
     }
 

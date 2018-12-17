@@ -1,4 +1,4 @@
-import { observable, computed, action} from "mobx";
+import { observable, computed, action } from "mobx";
 
 export abstract class PaginationStore {
     @observable count = 0;
@@ -12,7 +12,7 @@ export abstract class PaginationStore {
         if (start > this.count) {
             start = this.count;
         }
-        
+
         this.start = start;
         this.setEnd();
     }

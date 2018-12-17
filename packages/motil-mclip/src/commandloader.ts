@@ -16,19 +16,18 @@ export class CommandLoader {
     }
 
     public loadCommands () {
-        let loadDir: String[] = fs.readdirSync(this._path);
+        const loadDir: String[] = fs.readdirSync(this._path);
 
-        for (let file of loadDir) {
-            let module = require(this._path + "/" + file).default;
-            
-            let command: Command = <Command> new module();
+        for (const file of loadDir) {
+            const module = require(this._path + "/" + file).default;
+
+            const command: Command = <Command> new module();
             command.setConfiguration();
 
-
-            let com = this._commander.command(command.command);
+            const com = this._commander.command(command.command);
 
             command.options.forEach(v => com.option(v));
-            
+
             com.description(command.description);
             com.action(command.action.bind(command));
         }

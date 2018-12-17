@@ -2,21 +2,21 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 
 export interface ISidebarItemIcon {
-  text: string;
-  icon?: string;
-  dest: string;
-  transform?: string;
-  onClick?: any;
+    text: string;
+    icon?: string;
+    dest: string;
+    transform?: string;
+    onClick?: any;
 }
 
 export class SidebarLinkItemIcon extends React.Component<ISidebarItemIcon> {
-  props: ISidebarItemIcon;
-  constructor(props: ISidebarItemIcon) {
-    super(props);
-  }
+    props: ISidebarItemIcon;
+    constructor(props: ISidebarItemIcon) {
+        super(props);
+    }
 
-  render(): React.ReactElement<any> {
-    return (
+    render(): React.ReactElement<any> {
+        return (
       <li className="active" onClick={this.props.onClick}>
         <Link to={this.props.dest}>
           <i
@@ -28,6 +28,6 @@ export class SidebarLinkItemIcon extends React.Component<ISidebarItemIcon> {
           <span> {this.props.text}</span>
         </Link>
       </li>
-    );
-  }
+        );
+    }
 }

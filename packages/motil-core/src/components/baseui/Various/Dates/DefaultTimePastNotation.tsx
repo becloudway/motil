@@ -14,8 +14,8 @@ export class TimePastNotation extends React.Component<TimePastNotationProps> {
     }
 
     render () {
-        let date = this.props.date;
-        let timestamp = toLocalDate(date);
+        const date = this.props.date;
+        const timestamp = toLocalDate(date);
         return (
             <span className="sub-text">{getTimePast(timestamp)}</span>
         );

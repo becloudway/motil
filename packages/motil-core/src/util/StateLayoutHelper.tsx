@@ -15,41 +15,41 @@ export interface MarkupObject {
     notification: string;
 }
 
-export function stateToLabelLayout (state: ClientState | ServerState, value?: any) {
+export function stateToLabelLayout(state: ClientState | ServerState, value?: any) {
     value = value || state;
 
     switch (state) {
-        case ClientState.COMPLETED:
-        case ClientState.SUCCESFULL:
-        case ClientState.SUCCESS:
-        case ClientState.PROVISIONED:
-            return LabelHelper.success(value);
+    case ClientState.COMPLETED:
+    case ClientState.SUCCESFULL:
+    case ClientState.SUCCESS:
+    case ClientState.PROVISIONED:
+        return LabelHelper.success(value);
 
-        case ClientState.WARNING:
-        case ClientState.ROLLING:
-        case ClientState.WAITING:
-            return LabelHelper.warning(value);
+    case ClientState.WARNING:
+    case ClientState.ROLLING:
+    case ClientState.WAITING:
+        return LabelHelper.warning(value);
 
-        case ClientState.PENDING:
-        case ClientState.PROVISIONING:
-        case ClientState.LOADING:
-            return LabelHelper.info(value);
+    case ClientState.PENDING:
+    case ClientState.PROVISIONING:
+    case ClientState.LOADING:
+        return LabelHelper.info(value);
 
-        case ClientState.ERROR:
-        case ClientState.COMPLETED_WITH_ERRORS:
-        case ClientState.TIMEDOUT:
-            return LabelHelper.danger(value);
-        default:
-            return LabelHelper.info("INVALID_STATE");
+    case ClientState.ERROR:
+    case ClientState.COMPLETED_WITH_ERRORS:
+    case ClientState.TIMEDOUT:
+        return LabelHelper.danger(value);
+    default:
+        return LabelHelper.info("INVALID_STATE");
     }
 }
 
-export function stateToMarkupObject (state: ClientState | ServerState) : MarkupObject {
+export function stateToMarkupObject(state: ClientState | ServerState) : MarkupObject {
     switch (state) {
-        case ClientState.COMPLETED:
-        case ClientState.SUCCESFULL:
-        case ClientState.SUCCESS:
-        case ClientState.PROVISIONED:
+    case ClientState.COMPLETED:
+    case ClientState.SUCCESFULL:
+    case ClientState.SUCCESS:
+    case ClientState.PROVISIONED:
         return {
             color: "white",
             bgColor: "green",
@@ -61,12 +61,12 @@ export function stateToMarkupObject (state: ClientState | ServerState) : MarkupO
             spinner: "spinner-success",
             spinnerActive: false,
             notifyMessage: "notify-success",
-            notification: "notification-message"
-        }
+            notification: "notification-message",
+        };
 
-        case ClientState.WARNING:
-        case ClientState.ROLLING:
-        case ClientState.WAITING:
+    case ClientState.WARNING:
+    case ClientState.ROLLING:
+    case ClientState.WAITING:
         return {
             color: "white",
             bgColor: "orange",
@@ -78,13 +78,13 @@ export function stateToMarkupObject (state: ClientState | ServerState) : MarkupO
             spinner: "spinner-warning",
             spinnerActive: false,
             notifyMessage: "notify-warning",
-            notification: "notification-message"
-        }
+            notification: "notification-message",
+        };
 
-        case ClientState.PENDING:
-        case ClientState.PROVISIONING:
-        case ClientState.LOADING:
-        default:
+    case ClientState.PENDING:
+    case ClientState.PROVISIONING:
+    case ClientState.LOADING:
+    default:
         return {
             color: "white",
             bgColor: "primary",
@@ -96,12 +96,12 @@ export function stateToMarkupObject (state: ClientState | ServerState) : MarkupO
             spinner: "spinner-primary",
             spinnerActive: false,
             notifyMessage: "notify-primary",
-            notification: "notification-message"
-        }
+            notification: "notification-message",
+        };
 
-        case ClientState.ERROR:
-        case ClientState.COMPLETED_WITH_ERRORS:
-        case ClientState.TIMEDOUT:
+    case ClientState.ERROR:
+    case ClientState.COMPLETED_WITH_ERRORS:
+    case ClientState.TIMEDOUT:
         return {
             color: "white",
             bgColor: "red",
@@ -113,7 +113,7 @@ export function stateToMarkupObject (state: ClientState | ServerState) : MarkupO
             spinner: "spinner-danger",
             spinnerActive: false,
             notifyMessage: "notify-danger",
-            notification: "notification-danger"
-        }
+            notification: "notification-danger",
+        };
     }
 }

@@ -11,12 +11,11 @@ class Main {
 
     init (): void {
         Commander.version("1.0.0");
-        
+
         this._commandLoader.loadCommands();
 
         Commander.parse(process.argv);
     }
 }
-
 
 new Main().init();

@@ -1,8 +1,8 @@
 import * as React from "react";
 
 export  class ToggleNavigation extends React.Component {
-  render(): React.ReactElement<any> {
-    return (
+    render(): React.ReactElement<any> {
+        return (
       <nav className="navbar navbar-static-top" role="navigation">
         <a
           href="#"
@@ -14,6 +14,6 @@ export  class ToggleNavigation extends React.Component {
           <span className="sr-only">Toggle navigation</span>
         </a>
       </nav>
-    );
-  }
+        );
+    }
 }

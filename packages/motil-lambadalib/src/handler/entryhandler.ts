@@ -1,4 +1,4 @@
-import {Context, Callback} from "aws-lambda";
+import { Context, Callback } from "aws-lambda";
 import "reflect-metadata";
 import { HttpMethod } from "../enum";
 import { ValidationEngine } from "motil-validation-engine";
@@ -22,7 +22,7 @@ export abstract class EntryHandler {
         this._callback = callback;
 
         this._method = event.httpMethod;
-        
+
         this._route = null;
 
         this._valid = false;
@@ -47,20 +47,20 @@ export abstract class EntryHandler {
     public wrapCallBack(callback: any) {
         return (error: any, response: any) => {
             let body = response.body;
-            
+
             if (typeof body === "string") {
-                body = body.trim();
-                try {
-                    body = JSON.stringify(JSON.parse(body));
-                }
-                catch (ex) {
-                    body = JSON.stringify({
-                        message: body
-                    });
-                }
-            } else {
-                body = JSON.stringify(body);
+              body = body.trim();
+              try {
+                body = JSON.stringify(JSON.parse(body));
             }
+              catch (ex) {
+                body = JSON.stringify({
+                  message: body,
+              });
+            }
+          } else {
+              body = JSON.stringify(body);
+          }
 
             response.body = body;
             callback(error, response);
@@ -80,12 +80,11 @@ export abstract class EntryHandler {
             return false;
         }
 
-        let validationEngine = new ValidationEngine(body, rules);
-        let result = validationEngine.processRules();
+        const validationEngine = new ValidationEngine(body, rules);
+        const result = validationEngine.processRules();
 
         return result.isOk;
     }
-
 
     get event () {
         return this._event;

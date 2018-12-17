@@ -29,7 +29,7 @@ export class Pagination extends React.Component {
     }
 
     inputHandler (e: React.ChangeEvent<any>) {
-        let input = parseInt(e.target.value);
+        const input = parseInt(e.target.value);
 
         this.props.store.start = (isNaN(input) ? 0 : input);
         this.refreshTimeout();
@@ -39,7 +39,7 @@ export class Pagination extends React.Component {
         clearTimeout(this._timer);
         this._timer = setTimeout(() => {
             this.props.store.get();
-        }, 500);
+        },                         500);
     }
 
     render(): React.ReactElement<any> {
@@ -47,7 +47,7 @@ export class Pagination extends React.Component {
         <div>
                 <Row>
                     <Col sizes="col-sm-8">
-                        <button className="btn btn-primary btn-sm" onClick={this.previous} ><i className="fas fa-arrow-left"></i></button> 
+                        <button className="btn btn-primary btn-sm" onClick={this.previous} ><i className="fas fa-arrow-left"></i></button>
                         &nbsp;{this.props.store.start + " to " + (this.props.store.end) + " of " + this.props.store.count}&nbsp;
                         <button className="btn btn-primary btn-sm" onClick={this.next} ><i className="fas fa-arrow-right"></i></button>&nbsp;
                     </Col>

@@ -2,11 +2,11 @@ import { Module } from "./module/Module";
 import { ComponentModule } from "./module/ComponentModule";
 import { ServiceModule } from "./module/ServiceModule";
 
-import winston from "./util/Logger";
+import Logger from "./util/Logger";
 const logger = winston.loggers.get("default");
 
-//TODO: Add support for ServiceModules
-//TODO: Add better typings
+// TODO: Add support for ServiceModules
+// TODO: Add better typings
 
 export class ModuleLoader {
     private _enabled: boolean = false;
@@ -22,11 +22,11 @@ export class ModuleLoader {
 
         this._enabled = true;
 
-        for (let module of this._enabledModules) {
+        for (const module of this._enabledModules) {
 
-            logger.info("Loading <" + module.name +">");
+            logger.info("Loading <" + module.name + ">");
 
-            let m = new module(this);
+            const m = new module(this);
 
             this._modules.push(m);
             m.onLoad();
@@ -34,30 +34,32 @@ export class ModuleLoader {
     }
 
     public getNavigation (): Array<any> {
-        let navigation = [];
+        const navigation = [];
 
         if (!this._enabled) {
             return navigation;
         }
 
-        for (let m of this._modules) {
-            if ((m instanceof ComponentModule))
-                navigation.push(...m.setNavigation());
+        for (const m of this._modules) {
+            if ((m instanceof ComponentModule)) {
+              navigation.push(...m.setNavigation());
+          }
         }
 
         return navigation;
     }
 
     public getRoutes (): Array<any> {
-        let routes = [];
+        const routes = [];
 
         if (!this._enabled) {
             return routes;
         }
 
-        for (let m of this._modules) {
-            if ((m instanceof ComponentModule))
-                routes.push(...m.setRoutes());
+        for (const m of this._modules) {
+            if ((m instanceof ComponentModule)) {
+              routes.push(...m.setRoutes());
+          }
         }
 
         return routes;
@@ -65,19 +67,19 @@ export class ModuleLoader {
 
     public getStores (): {[x: string]: any} {
         let stores = {};
-        
+
         if (!this._enabled) {
             return stores;
         }
 
-        for (let m of this._modules) {
-            if ((m instanceof ComponentModule))
-                stores = {...stores, ...m.setStores()};
+        for (const m of this._modules) {
+            if ((m instanceof ComponentModule)) {
+              stores = { ...stores, ...m.setStores() };
+          }
         }
 
         return stores;
     }
-
 
     get modules () {
         return this._modules;

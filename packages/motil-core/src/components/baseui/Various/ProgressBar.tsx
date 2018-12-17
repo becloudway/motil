@@ -22,7 +22,7 @@ export class ProgressBar extends React.Component {
         return (
             <div className="progress-group">
                 <div className="progress progress active progress-border">
-                    <div className={"progress-bar progress-bar-" + (this.props.color || "primary") + striped} role="progressbar" aria-valuenow={this.props.percentage} aria-valuemin={0} aria-valuemax={100} style={{width: this.props.percentage + "%"}}>
+                    <div className={"progress-bar progress-bar-" + (this.props.color || "primary") + striped} role="progressbar" aria-valuenow={this.props.percentage} aria-valuemin={0} aria-valuemax={100} style={{ width: this.props.percentage + "%" }}>
                         <span className="sr-only">{this.props.percentage}% Complete</span>
                     </div>
                 </div>

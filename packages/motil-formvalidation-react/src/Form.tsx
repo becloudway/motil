@@ -17,12 +17,12 @@ export interface FormValidationRules {
 
 export interface FormFunctions {
     [functionName: string]: (value: any, param: any) => boolean;
-} 
+}
 
 export abstract class Form extends React.Component<FormProps, FormState> {
     public props: FormProps;
     public state: FormState;
-    
+
     private target: string;
     private rules: FormValidationRules;
 
@@ -34,9 +34,9 @@ export abstract class Form extends React.Component<FormProps, FormState> {
         this.state = {
             error: {
 
-            },
-            ...state
-        }
+          },
+            ...state,
+        };
 
         this.target = target;
         this.rules = rules;
@@ -65,7 +65,7 @@ export abstract class Form extends React.Component<FormProps, FormState> {
         const result = this.validationEngine.processRules();
 
         this.setState({
-            error: result.errors
+            error: result.errors,
         });
 
         return result.isOk;
